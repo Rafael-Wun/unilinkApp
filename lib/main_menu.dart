@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:unilink_project/view/chat/chat_view.dart';
+import 'package:unilink_project/view/explore/explore_view.dart';
+import 'package:unilink_project/view/home/home_view.dart';
+import 'package:unilink_project/view/profile/profile_view.dart';
 
 class MainMenu extends StatefulWidget {
+  const MainMenu({super.key});
+
   @override
   State<MainMenu> createState() => _MainMenuState();
 }
@@ -38,44 +44,49 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   List<Widget> _screenContainers() {
-    return [];
+    return [
+      HomeView(),
+      ExploreView(),
+      ChatView(),
+      ProfileView(),
+    ];
   }
 
   List<PersistentBottomNavBarItem> _navItems() {
     return [
-      // PersistentBottomNavBarItem(
-      //   icon: Icon(
-      //     Icons.home,
-      //     size: 30,
-      //   ),
-      //   title: ("Home"),
-      //   activeColorPrimary: Colors.blue,
-      //   inactiveColorPrimary: Colors.grey,
-      // ),
-      // PersistentBottomNavBarItem(
-      //   icon: Icon(Icons.explore),
-      //   title: ("Explore"),
-      //   activeColorPrimary: Colors.blue,
-      //   inactiveColorPrimary: Colors.grey,
-      // ),
-      // PersistentBottomNavBarItem(
-      //   icon: Icon(
-      //     Icons.chat_bubble,
-      //     size: 26,
-      //   ),
-      //   title: ("Chat"),
-      //   activeColorPrimary: Colors.blue,
-      //   inactiveColorPrimary: Colors.grey,
-      // ),
-      // PersistentBottomNavBarItem(
-      //   icon: Icon(
-      //     Icons.person,
-      //     size: 30,
-      //   ),
-      //   title: ("Profile"),
-      //   activeColorPrimary: Colors.blue,
-      //   inactiveColorPrimary: Colors.grey,
-      // ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          Icons.home,
+          size: 30,
+        ),
+        title: ("Home"),
+        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
+        inactiveColorPrimary: Colors.grey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.explore),
+        title: ("Explore"),
+        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
+        inactiveColorPrimary: Colors.grey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          Icons.chat_bubble,
+          size: 26,
+        ),
+        title: ("Chat"),
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.grey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          Icons.person,
+          size: 30,
+        ),
+        title: ("Profile"),
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.grey,
+      ),
     ];
   }
 }
