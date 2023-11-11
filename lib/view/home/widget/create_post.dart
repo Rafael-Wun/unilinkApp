@@ -7,6 +7,7 @@ class CreatePost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
+      margin: EdgeInsets.only(bottom: 16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
@@ -14,7 +15,7 @@ class CreatePost extends StatelessWidget {
       child: Column(
         children: [
           _buildTextPost(),
-          SizedBox(height: 12.0),
+          SizedBox(height: 16.0),
           _buildMediaPost(),
         ],
       ),
@@ -51,10 +52,9 @@ class CreatePost extends StatelessWidget {
 
   Widget _buildMediaPost() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        ElevatedButton(
-          onPressed: null,
+        GestureDetector(
           child: Row(
             children: [
               Icon(
@@ -66,8 +66,7 @@ class CreatePost extends StatelessWidget {
             ],
           ),
         ),
-        ElevatedButton(
-          onPressed: null,
+        GestureDetector(
           child: Row(
             children: [
               Icon(
@@ -78,7 +77,7 @@ class CreatePost extends StatelessWidget {
               Text('Gallery'),
             ],
           ),
-        ),
+        )
       ],
     );
   }
