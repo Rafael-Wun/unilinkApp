@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/create_acc/widget/fc.dart';
+import 'package:unilink_project/view/signup/widget/fc.dart';
 
-class CreateView extends StatefulWidget {
-  const CreateView({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<CreateView> createState() => _CreateViewState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _CreateViewState extends State<CreateView> {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

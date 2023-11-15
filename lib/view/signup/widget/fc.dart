@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/create_acc/widget/sc.dart';
+import 'package:unilink_project/view/signup/widget/sc.dart';
 
 class FirstCreate extends StatelessWidget {
   const FirstCreate({super.key});
@@ -220,7 +220,8 @@ class FirstCreate extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: SecondCreate(),
+          // onPressed: SecondCreate(),
+          onPressed: null,
           child: Text(
             'Continue',
             style:

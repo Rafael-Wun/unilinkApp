@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 // import 'package:unilink/views/pages/main_menu.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignInState extends State<SignIn> {
   final _passController = TextEditingController();
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();

@@ -75,7 +75,7 @@ class _MainMenuState extends State<MainMenu> {
           size: 26,
         ),
         title: ("Chat"),
-        activeColorPrimary: Colors.blue,
+        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
@@ -84,7 +84,7 @@ class _MainMenuState extends State<MainMenu> {
           size: 30,
         ),
         title: ("Profile"),
-        activeColorPrimary: Colors.blue,
+        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
         inactiveColorPrimary: Colors.grey,
       ),
     ];
