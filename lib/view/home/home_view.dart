@@ -13,7 +13,6 @@ class HomeView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(16.0),
-            color: Color.fromRGBO(240, 240, 240, 1.0),
             child: Column(
               children: [
                 CreatePost(),

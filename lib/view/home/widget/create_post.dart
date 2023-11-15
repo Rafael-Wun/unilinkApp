@@ -7,15 +7,22 @@ class CreatePost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      margin: EdgeInsets.only(bottom: 16.0),
+      margin: EdgeInsets.only(bottom: 24.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 6.0,
+            offset: Offset(0.0, 3.0),
+          ),
+        ],
       ),
       child: Column(
         children: [
           _buildTextPost(),
-          SizedBox(height: 16.0),
+          SizedBox(height: 20.0),
           _buildMediaPost(),
         ],
       ),

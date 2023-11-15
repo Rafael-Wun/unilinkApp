@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unilink_project/main_menu.dart';
-import 'package:unilink_project/view/signup/signup_view.dart';
 
 void main() {
   runApp(const MyApp());

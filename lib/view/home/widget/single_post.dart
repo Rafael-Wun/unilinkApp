@@ -7,17 +7,28 @@ class SinglePost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 328,
-      margin: EdgeInsets.only(bottom: 16.0),
+      margin: EdgeInsets.only(bottom: 28.0),
       decoration: BoxDecoration(
-        // color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 12.0,
+            offset: Offset(0.0, 4.0),
+          ),
+        ],
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
           Positioned(
-            child: Image.network(
-                'https://images.unsplash.com/photo-1682686580224-cd46ea1a6950?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+            // child: Image.network(
+            //     'https://images.unsplash.com/photo-1537000492618-6838fca45244?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG5hdHVyZSUyMDElM0ExfGVufDB8fDB8fHwy'),
+            child: Container(
+              width: 328,
+              height: 328,
+              color: Colors.grey,
+            ),
           ),
           Positioned(
             top: 16,
@@ -25,12 +36,12 @@ class SinglePost extends StatelessWidget {
             child: _buildUserProfile(),
           ),
           Positioned(
-            bottom: 40,
+            bottom: 56,
             left: 16,
             child: _buildInteractionsBtn(),
           ),
           Positioned(
-            bottom: 16,
+            bottom: 24,
             left: 16,
             child: _buildCaption(),
           ),
@@ -44,18 +55,28 @@ class SinglePost extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.fromLTRB(4.0, 4.0, 12.0, 4.0),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(255, 255, 255, 0.5),
+          color: Color.fromRGBO(255, 255, 255, 1),
           borderRadius: BorderRadius.circular(50.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 4.0,
+              offset: Offset(0.0, 2.0),
+            ),
+          ],
         ),
         child: Row(
           children: [
             ClipOval(
               clipBehavior: Clip.antiAlias,
-              child: Image.network(
-                'https://images.unsplash.com/photo-1487309078313-fad80c3ec1e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXNpYW4lMjBtZW58ZW58MHx8MHx8fDA%3D',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
+              // child: Image.network(
+              //   'https://images.unsplash.com/photo-1487309078313-fad80c3ec1e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXNpYW4lMjBtZW58ZW58MHx8MHx8fDA%3D',
+              //   width: 40,
+              //   height: 40,
+              //   fit: BoxFit.cover,
+              // ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey,
               ),
             ),
             SizedBox(width: 8.0),
@@ -111,11 +132,16 @@ class SinglePost extends StatelessWidget {
   }
 
   Widget _buildCaption() {
-    return Text(
-      'Caption',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 12,
+    return Container(
+      width: 192,
+      child: Text(
+        'Caption wkwkwkwkkwkwkkwkwkwkwkwkkwwkwkwkwkwkwkwkkwkwkwkkwkwk',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
       ),
     );
   }
