@@ -6,14 +6,14 @@ import 'package:unilink_project/view/profile/wdget/videos_grid.dart';
 import '../../main.dart';
 import 'edit_profil.dart';
 
-class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+class OtherProfileView extends StatefulWidget {
+  const OtherProfileView({super.key});
 
   @override
-  State<ProfileView> createState() => _ProfileViewState();
+  State<OtherProfileView> createState() => _OtherProfileViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
+class _OtherProfileViewState extends State<OtherProfileView> {
   final List<Widget> tabs = const [
     Tab(
       // icon: Icon(
@@ -91,7 +91,7 @@ class _ProfileViewState extends State<ProfileView> {
     return Container(
       color: Colors.grey,
       child: Image.asset(
-          'assets/images/moraine.jpg',
+        'assets/images/moraine.jpg',
         // width: deviceWidth,
         // height: deviceHeight * .2,
         fit: BoxFit.cover,
@@ -116,7 +116,7 @@ class _ProfileViewState extends State<ProfileView> {
       children: [
         Text(
           // '${currentUser.fName} ' + '${currentUser.lName}',
-          'Budi Budi',
+          'Hen Lix',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -137,16 +137,20 @@ class _ProfileViewState extends State<ProfileView> {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-               return EditProfile();
+              return EditProfile();
             }));
           },
-          child: Text(
-            'Designer' + '      '+ 'Developer',
-            style: TextStyle(
-              // backgroundColor: Colors.grey,
-              fontSize: 16
-            ),
-            textAlign: TextAlign.center,
+          child: Container(
+            color: Colors.white38,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              'Designer',
+                style: TextStyle(
+                    // backgroundColor: Colors.grey,
+                    fontSize: 16
+                 ),
+                textAlign: TextAlign.center,
+              ),
           ),
         ),
         SizedBox(
@@ -156,22 +160,40 @@ class _ProfileViewState extends State<ProfileView> {
         SizedBox(
           height: 10,
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width / 1.2,
-          height: MediaQuery.of(context).size.height / 4.1 - 170,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 3,
+                child: ElevatedButton(onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  ),
+                  child: Text(
+                    'Follow',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
             ),
-            child: Text(
-              'Edit Profile',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 3,
+              child: ElevatedButton(onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                ),
+                child: Text(
+                  'Message',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ],
     );
@@ -181,26 +203,26 @@ class _ProfileViewState extends State<ProfileView> {
     return;
   }
 
-  // Widget _buildFollow() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //     children: [
-  //       TextButton(
-  //         onPressed: dummy,
-  //         child: Text(
-  //           '${currentUser.followers} Followers',
-  //           style: TextStyle(color: Colors.black),
-  //         ),
-  //       ),
-  //       TextButton(
-  //         onPressed: dummy,
-  //         child: Text(
-  //           '${currentUser.following} Following',
-  //           style: TextStyle(color: Colors.black),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+// Widget _buildFollow() {
+//   return Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceAround,
+//     children: [
+//       TextButton(
+//         onPressed: dummy,
+//         child: Text(
+//           '${currentUser.followers} Followers',
+//           style: TextStyle(color: Colors.black),
+//         ),
+//       ),
+//       TextButton(
+//         onPressed: dummy,
+//         child: Text(
+//           '${currentUser.following} Following',
+//           style: TextStyle(color: Colors.black),
+//         ),
+//       ),
+//     ],
+//   );
+// }
 }
 

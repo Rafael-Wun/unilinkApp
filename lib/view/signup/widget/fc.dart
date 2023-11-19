@@ -19,6 +19,9 @@ class FirstCreate extends StatelessWidget {
           _boxsemes(),
           _bio(),
           _boxbio(),
+          SizedBox(
+            height: 25,
+          ),
           _continue()
         ],
       ),
