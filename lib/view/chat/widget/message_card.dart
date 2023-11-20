@@ -1,30 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ChatList extends StatelessWidget {
-  const ChatList({super.key});
+class MessageCard extends StatefulWidget {
+  const MessageCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Column(
-          children: <Widget>[
-            _buildChat(),
-            _buildChat(),
-            _buildChat(),
-            _buildChat(),
-            _buildChat(),
-            _buildChat(),
-            _buildChat(),
-            _buildChat(),
-          ],
-        ),
-      ),
-    );
-  }
+  State<MessageCard> createState() => _MessageCardState();
+}
 
-  Widget _buildChat() {
+class _MessageCardState extends State<MessageCard> {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: 360,
       padding: EdgeInsets.all(16.0),
@@ -36,7 +21,6 @@ class ChatList extends StatelessWidget {
             backgroundColor: Colors.grey,
             radius: 24,
           ),
-          // SizedBox(width: 16.0),
           Container(
             width: 178,
             child: Column(
@@ -47,7 +31,6 @@ class ChatList extends StatelessWidget {
               ],
             ),
           ),
-          // SizedBox(width: 16.0),
           Text('00:00 AM'),
         ],
       ),

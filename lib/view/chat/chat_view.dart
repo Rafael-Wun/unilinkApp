@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/chat/widget/chat_list.dart';
-import 'package:unilink_project/view/chat/widget/online_friends.dart';
-import 'package:unilink_project/view/chat/widget/stories.dart';
+import 'package:unilink_project/view/chat/widget/message_card.dart';
+import 'package:unilink_project/view/chat/widget/online_bubble.dart';
+import 'package:unilink_project/view/chat/widget/story.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({super.key});
@@ -9,9 +9,7 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0.0,
-      ),
+      appBar: AppBar(toolbarHeight: 0.0),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -50,6 +48,63 @@ class ChatView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget OnlineFriends() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: <Widget>[
+            OnlineBubble(),
+            OnlineBubble(),
+            OnlineBubble(),
+            OnlineBubble(),
+            OnlineBubble(),
+            OnlineBubble(),
+            OnlineBubble(),
+            OnlineBubble(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget Stories() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: <Widget>[
+            Story(),
+            Story(),
+            Story(),
+            Story(),
+            Story(),
+            Story(),
+            Story(),
+            Story(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget ChatList() {
+    return Column(
+      children: <Widget>[
+        MessageCard(),
+        MessageCard(),
+        MessageCard(),
+        MessageCard(),
+        MessageCard(),
+        MessageCard(),
+        MessageCard(),
+        MessageCard(),
+      ],
     );
   }
 }

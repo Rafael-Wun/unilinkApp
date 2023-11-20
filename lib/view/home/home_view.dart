@@ -18,6 +18,8 @@ class HomeView extends StatelessWidget {
                 CreatePost(),
                 SinglePost(),
                 SinglePost(),
+                SinglePost(),
+                SinglePost(),
               ],
             ),
           ),

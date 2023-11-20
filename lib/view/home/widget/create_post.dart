@@ -47,7 +47,7 @@ class CreatePost extends StatelessWidget {
             child: TextField(
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
-                hintText: 'What\'s on your mind, [user]?',
+                hintText: 'What\'s on your mind, [username]?',
                 border: InputBorder.none,
               ),
             ),

@@ -69,18 +69,12 @@ class SinglePost extends StatelessWidget {
           children: [
             ClipOval(
               clipBehavior: Clip.antiAlias,
-              // child: Image.network(
-              //   'https://images.unsplash.com/photo-1487309078313-fad80c3ec1e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXNpYW4lMjBtZW58ZW58MHx8MHx8fDA%3D',
-              //   width: 40,
-              //   height: 40,
-              //   fit: BoxFit.cover,
-              // ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey,
               ),
             ),
             SizedBox(width: 8.0),
-            Text('@an.tony'),
+            Text('[username]'),
             SizedBox(width: 8.0),
             Text('1h'),
           ],
@@ -135,7 +129,7 @@ class SinglePost extends StatelessWidget {
     return Container(
       width: 192,
       child: Text(
-        'Caption wkwkwkwkkwkwkkwkwkwkwkwkkwwkwkwkwkwkwkwkkwkwkwkkwkwk',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         style: TextStyle(
           color: Colors.white,
           fontSize: 14,
