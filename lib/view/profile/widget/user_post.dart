@@ -27,7 +27,11 @@ class _UserPostState extends State<UserPost> {
       length: 3,
       child: Column(
         children: [
-          TabBar(tabs: tabs),
+          TabBar(
+            tabs: tabs,
+            dividerColor: Colors.grey[200],
+            indicatorColor: Color.fromRGBO(223, 88, 90, 1.0),
+          ),
           SizedBox(
             height: 480,
             child: TabBarView(children: tabBarViews),

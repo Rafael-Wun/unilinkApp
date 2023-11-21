@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 
-class SinglePost extends StatelessWidget {
-  const SinglePost({super.key});
+class SinglePost extends StatefulWidget {
+  final String userId;
+  final String userName;
+  final String userProfile;
+  final String userContent;
+  final String userCaption;
+  final String postType;
 
+  const SinglePost({
+    Key? key,
+    required this.userId,
+    required this.userName,
+    required this.userProfile,
+    required this.userContent,
+    required this.userCaption,
+    required this.postType,
+  }) : super(key: key);
+
+  @override
+  State<SinglePost> createState() => _SinglePostState();
+}
+
+class _SinglePostState extends State<SinglePost> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,12 +42,16 @@ class SinglePost extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            // child: Image.network(
-            //     'https://images.unsplash.com/photo-1537000492618-6838fca45244?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG5hdHVyZSUyMDElM0ExfGVufDB8fDB8fHwy'),
             child: Container(
               width: 328,
               height: 328,
-              color: Colors.grey,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                image: DecorationImage(
+                  image: NetworkImage(widget.userContent),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           Positioned(
@@ -71,10 +95,11 @@ class SinglePost extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               child: CircleAvatar(
                 backgroundColor: Colors.grey,
+                backgroundImage: NetworkImage(widget.userProfile),
               ),
             ),
             SizedBox(width: 8.0),
-            Text('[username]'),
+            Text(widget.userName),
             SizedBox(width: 8.0),
             Text('1h'),
           ],
@@ -129,7 +154,7 @@ class SinglePost extends StatelessWidget {
     return Container(
       width: 192,
       child: Text(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        widget.userCaption,
         style: TextStyle(
           color: Colors.white,
           fontSize: 14,

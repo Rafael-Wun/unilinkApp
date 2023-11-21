@@ -9,6 +9,7 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(toolbarHeight: 0.0),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,6 +48,12 @@ class ChatView extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+        shape: OvalBorder(),
+        splashColor: Color.fromRGBO(223, 88, 90, 1.0),
       ),
     );
   }

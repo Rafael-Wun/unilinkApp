@@ -16,8 +16,8 @@ class _AboutUserState extends State<AboutUser> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '[username]',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            'Cherrisa Aeryn',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 8.0),
           Text(

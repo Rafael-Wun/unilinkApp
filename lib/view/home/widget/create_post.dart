@@ -34,6 +34,8 @@ class CreatePost extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundColor: Colors.grey,
+          backgroundImage: NetworkImage(
+              'https://images.unsplash.com/photo-1699730132083-360f1d7a8f83?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1OXx8fGVufDB8fHx8fA%3D%3D'),
         ),
         SizedBox(width: 16.0),
         Expanded(
@@ -47,7 +49,7 @@ class CreatePost extends StatelessWidget {
             child: TextField(
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
-                hintText: 'What\'s on your mind, [username]?',
+                hintText: 'What\'s on your mind, Aeryn?',
                 border: InputBorder.none,
               ),
             ),

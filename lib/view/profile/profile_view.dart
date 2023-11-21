@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unilink_project/view/profile/edit_profile.dart';
 import 'package:unilink_project/view/profile/widget/about_user.dart';
 import 'package:unilink_project/view/profile/widget/user_cover.dart';
 import 'package:unilink_project/view/profile/widget/user_post.dart';
@@ -14,16 +15,23 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(toolbarHeight: 0.0),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               UserCover(),
-              SizedBox(height: 32.0),
+              SizedBox(height: 24.0),
               AboutUser(),
               SizedBox(height: 32.0),
               GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditProfile()),
+                  );
+                },
                 child: Container(
                   width: 312,
                   padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -40,6 +48,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
               ),
+              SizedBox(height: 8.0),
               UserPost(),
             ],
           ),
