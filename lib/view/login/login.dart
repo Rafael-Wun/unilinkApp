@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/register/register_1.dart';
+import 'package:unilink_project/main_menu.dart';
+import 'package:unilink_project/view/register/register.dart';
 import 'package:unilink_project/view/widgets/c_textfield.dart';
 
 class Login extends StatefulWidget {
@@ -12,6 +14,27 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future SignIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainMenu()),
+      );
+    } catch (e) {
+      print('Error during login: $e');
+    }
+  }
+
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,28 +93,16 @@ class LoginState extends State<Login> {
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 72),
-                  GestureDetector(
-                    child: Container(
-                      width: 312,
-                      padding: EdgeInsets.fromLTRB(124.0, 8.0, 16.0, 8.0),
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(223, 88, 90, 1.0),
-                          borderRadius: BorderRadius.circular(50.0)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Icon(
-                            Icons.keyboard_arrow_right_rounded,
-                            color: Colors.white,
-                          ),
-                        ],
+                  ElevatedButton(
+                    onPressed: SignIn,
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(223, 88, 90, 1.0),
+                    ),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -106,7 +117,9 @@ class LoginState extends State<Login> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => RegisterFirst()),
+                            MaterialPageRoute(
+                              builder: (context) => Register(),
+                            ),
                           );
                         },
                         child: const Text(
