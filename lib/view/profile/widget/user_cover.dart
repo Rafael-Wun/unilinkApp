@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserCover extends StatefulWidget {
@@ -89,6 +90,16 @@ class _UserCoverState extends State<UserCover> {
                   ),
                 ],
               ),
+            ),
+          ),
+          Positioned(
+            top: 24,
+            right: 24,
+            child: ElevatedButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+              child: Text('Logout'),
             ),
           ),
         ],

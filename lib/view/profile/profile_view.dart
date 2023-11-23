@@ -16,7 +16,6 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(toolbarHeight: 0.0),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

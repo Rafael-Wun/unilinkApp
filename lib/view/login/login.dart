@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/main_menu.dart';
-import 'package:unilink_project/view/register/register.dart';
 import 'package:unilink_project/view/widgets/c_textfield.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final Function()? onTap;
+  const Login({super.key, required this.onTap});
 
   @override
   State<Login> createState() => LoginState();
@@ -16,18 +15,42 @@ class LoginState extends State<Login> {
   final passwordController = TextEditingController();
 
   Future SignIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainMenu()),
-      );
-    } catch (e) {
-      print('Error during login: $e');
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      showErrorMessage(e.code);
     }
+  }
+
+  void showErrorMessage(String msg) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Color.fromRGBO(223, 88, 90, 1.0),
+          title: Center(
+            child: Text(
+              msg,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void dispose() {
@@ -59,40 +82,30 @@ class LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 56),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Email Address',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
                   CustomTextField(
                     controller: emailController,
-                    hintText: 'john@gmail.com',
+                    hintText: 'Enter your e-mail',
                     obsecureText: false,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Password',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   CustomTextField(
                     controller: passwordController,
-                    hintText: 'min. 8 characters',
+                    hintText: 'Enter your password',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
-                  const SizedBox(height: 72),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.blue),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 64.0),
                   ElevatedButton(
                     onPressed: SignIn,
                     style: ElevatedButton.styleFrom(
@@ -111,19 +124,12 @@ class LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Don\'t Have an Account?',
+                        'Don\'t have an account?',
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Register(),
-                            ),
-                          );
-                        },
+                        onTap: widget.onTap,
                         child: const Text(
-                          ' Register Now!',
+                          ' Register now!',
                           style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.bold),
                         ),

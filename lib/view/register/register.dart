@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/login/login.dart';
 import 'package:unilink_project/view/widgets/c_textfield.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  final Function()? onTap;
+  const Register({super.key, required this.onTap});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -16,6 +17,57 @@ class _RegisterState extends State<Register> {
   final fullNameController = TextEditingController();
   final universityController = TextEditingController();
   final bioController = TextEditingController();
+
+  Future SignUp() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      if (passwordController.text.trim() ==
+          confirmPasswordController.text.trim()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+      } else {
+        showErrorMessage("Password don't match!");
+        Navigator.pop(context);
+      }
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      showErrorMessage(e.code);
+    }
+  }
+
+  void showErrorMessage(String msg) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Color.fromRGBO(223, 88, 90, 1.0),
+          title: Center(
+            child: Text(
+              msg,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,49 +93,20 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   const SizedBox(height: 56),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Email Address',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
                   CustomTextField(
                     controller: emailController,
-                    hintText: 'john@gmail.com',
+                    hintText: 'Enter your e-mail',
                     obsecureText: false,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Password',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   CustomTextField(
                     controller: passwordController,
-                    hintText: 'Min. 8 characters',
+                    hintText: 'Min. 6 characters',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Confirm Password',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   CustomTextField(
                     controller: confirmPasswordController,
                     hintText: 'Confirm your password',
@@ -91,76 +114,37 @@ class _RegisterState extends State<Register> {
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Fullname',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   CustomTextField(
                     controller: fullNameController,
-                    hintText: 'John Doe',
-                    obsecureText: true,
+                    hintText: 'Enter your name',
+                    obsecureText: false,
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'University',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   CustomTextField(
                     controller: universityController,
                     hintText: 'Enter your university',
-                    obsecureText: true,
+                    obsecureText: false,
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 312,
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Bio',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   CustomTextField(
                     controller: bioController,
                     hintText: 'Describe yourself',
-                    obsecureText: true,
+                    obsecureText: false,
                     keyboardType: TextInputType.name,
                   ),
-                  const SizedBox(height: 72),
-                  GestureDetector(
-                    child: Container(
-                      width: 312,
-                      padding: EdgeInsets.fromLTRB(124.0, 8.0, 16.0, 8.0),
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(223, 88, 90, 1.0),
-                          borderRadius: BorderRadius.circular(50.0)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Register',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Icon(
-                            Icons.keyboard_arrow_right_rounded,
-                            color: Colors.white,
-                          ),
-                        ],
+                  const SizedBox(height: 64.0),
+                  ElevatedButton(
+                    onPressed: SignUp,
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(223, 88, 90, 1.0),
+                    ),
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -169,19 +153,12 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already Have an Account?',
+                        'Already have an account?',
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Login(),
-                            ),
-                          );
-                        },
+                        onTap: widget.onTap,
                         child: const Text(
-                          ' Login Now!',
+                          ' Login now',
                           style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.bold),
                         ),

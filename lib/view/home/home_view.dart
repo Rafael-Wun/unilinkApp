@@ -16,6 +16,13 @@ class HomeView extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
+                // ElevatedButton(
+                //   onPressed: () async {
+                //     await FirebaseAuth.instance.signOut();
+                //   },
+                //   child: Text('Logout'),
+                // ),
+                // SizedBox(height: 10),
                 CreatePost(),
                 SinglePost(
                   userId: '01',

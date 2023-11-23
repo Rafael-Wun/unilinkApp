@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:unilink_project/view/chat/chat_view.dart';
@@ -13,6 +14,7 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
+  final user = FirebaseAuth.instance.currentUser!;
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
