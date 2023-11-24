@@ -10,13 +10,11 @@ class UserPost extends StatefulWidget {
 
 class _UserPostState extends State<UserPost> {
   final List<Widget> tabs = const [
-    Tab(text: 'All'),
+    Tab(text: 'Text'),
     Tab(text: 'Photos'),
-    Tab(text: 'Videos'),
   ];
 
   final List<Widget> tabBarViews = const [
-    PostGrid(),
     PostGrid(),
     PostGrid(),
   ];
@@ -24,7 +22,7 @@ class _UserPostState extends State<UserPost> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Column(
         children: [
           TabBar(

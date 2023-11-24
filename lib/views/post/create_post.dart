@@ -81,7 +81,6 @@ class _CreatePostState extends State<CreatePost> {
             ),
           ),
         ),
-        SizedBox(width: 4.0),
         IconButton(onPressed: postMsg, icon: Icon(Icons.send_rounded)),
       ],
     );

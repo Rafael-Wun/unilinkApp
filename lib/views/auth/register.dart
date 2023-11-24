@@ -115,7 +115,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 24),
                   CustomTextField(
                     controller: passwordController,
-                    hintText: 'Min. 6 characters',
+                    hintText: 'Create your password',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
