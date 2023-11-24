@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/home/widget/create_post.dart';
-import 'package:unilink_project/view/home/widget/single_post.dart';
+import 'package:unilink_project/views/post/create_post.dart';
+import 'package:unilink_project/views/post/single_post.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,12 +17,12 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         toolbarHeight: 0.0,
       ),
       body: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
         child: Column(
           children: [
             CreatePost(),
@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("User Posts")
-                    .orderBy("Timestamp", descending: false)
+                    .orderBy("Timestamp", descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -42,7 +42,9 @@ class _HomeViewState extends State<HomeView> {
                         return SinglePost(
                           userName: post['Name'],
                           userCaption: post['Caption'],
+                          postId: post.id,
                           postType: post['Type'],
+                          likes: List<String>.from(post['Likes'] ?? []),
                         );
                       },
                     );

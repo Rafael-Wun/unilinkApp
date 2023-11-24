@@ -1,21 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unilink_project/views/widgets/like_btn.dart';
 
 class SinglePost extends StatefulWidget {
-  // final String userId;
   final String userName;
-  // final String userProfile;
-  // final String userContent;
   final String userCaption;
+  final String postId;
   final String postType;
+  final List<String> likes;
 
   const SinglePost({
     Key? key,
-    //   required this.userId,
     required this.userName,
-    //   required this.userProfile,
-    //   required this.userContent,
     required this.userCaption,
+    required this.postId,
     required this.postType,
+    required this.likes,
   }) : super(key: key);
 
   @override
@@ -23,29 +24,55 @@ class SinglePost extends StatefulWidget {
 }
 
 class _SinglePostState extends State<SinglePost> {
+  final currentUser = FirebaseAuth.instance.currentUser!;
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isLiked = widget.likes.contains(currentUser.email);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void toogleLike() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+
+    DocumentReference postRef =
+        FirebaseFirestore.instance.collection('User Posts').doc(widget.postId);
+
+    if (isLiked) {
+      postRef.update({
+        'Likes': FieldValue.arrayUnion([currentUser.email])
+      });
+    } else {
+      postRef.update({
+        'Likes': FieldValue.arrayRemove([currentUser.email])
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 32.0),
-      padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
+      margin: const EdgeInsets.only(bottom: 32.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
       decoration: BoxDecoration(
-        image: widget.postType == 'image'
-            ? DecorationImage(
-                image: NetworkImage(
-                  'https://images.unsplash.com/photo-1700159915592-004562ddcf6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHx8',
-                ),
-                fit: BoxFit.cover,
-              )
-            : null,
+        // image: widget.postType == 'image'
+        //     ? DecorationImage(
+        //         image: NetworkImage(
+        //           'https://images.unsplash.com/photo-1700159915592-004562ddcf6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHx8',
+        //         ),
+        //         fit: BoxFit.cover,
+        //       )
+        //     : null,
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 12.0,
-            offset: Offset(0.0, 4.0),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +97,7 @@ class _SinglePostState extends State<SinglePost> {
   Widget _buildUserProfile() {
     return IntrinsicWidth(
       child: Container(
-        padding: EdgeInsets.fromLTRB(6.0, 6.0, 16.0, 6.0),
+        padding: const EdgeInsets.fromLTRB(6.0, 6.0, 16.0, 6.0),
         decoration: BoxDecoration(
           color: widget.postType == 'image'
               ? Colors.white
@@ -81,12 +108,13 @@ class _SinglePostState extends State<SinglePost> {
           children: [
             CircleAvatar(
               backgroundColor: Colors.grey[400],
-              // backgroundImage: NetworkImage(widget.userProfile),
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
             ),
-            SizedBox(width: 8.0),
+            const SizedBox(width: 8.0),
             Text(widget.userName),
-            SizedBox(width: 8.0),
-            Text('1m'),
           ],
         ),
       ),
@@ -96,24 +124,15 @@ class _SinglePostState extends State<SinglePost> {
   Widget _buildInteractions() {
     return Row(
       children: [
-        GestureDetector(
-          child: Row(
-            children: [
-              Icon(
-                Icons.thumb_up_outlined,
-                color: widget.postType == 'image' ? Colors.white : Colors.black,
-                size: 20,
-              ),
-              SizedBox(width: 4.0),
-              Text(
-                'Likes',
-                style: TextStyle(
-                  color:
-                      widget.postType == 'image' ? Colors.white : Colors.black,
-                ),
-              ),
-            ],
-          ),
+        Row(
+          children: [
+            LikeBtn(isLiked: isLiked, onTap: toogleLike),
+            const SizedBox(width: 8.0),
+            Text(
+              widget.likes.length.toString(),
+              style: TextStyle(color: Colors.grey),
+            ),
+          ],
         ),
         SizedBox(width: 16.0),
         GestureDetector(
@@ -121,7 +140,7 @@ class _SinglePostState extends State<SinglePost> {
             children: [
               Icon(
                 Icons.comment_outlined,
-                color: widget.postType == 'image' ? Colors.white : Colors.black,
+                color: widget.postType == 'image' ? Colors.white : Colors.grey,
                 size: 20,
               ),
               SizedBox(width: 4.0),
@@ -129,7 +148,7 @@ class _SinglePostState extends State<SinglePost> {
                 'Comments',
                 style: TextStyle(
                   color:
-                      widget.postType == 'image' ? Colors.white : Colors.black,
+                      widget.postType == 'image' ? Colors.white : Colors.grey,
                 ),
               ),
             ],
@@ -163,7 +182,9 @@ class _SinglePostState extends State<SinglePost> {
           Expanded(
             child: Text(
               widget.userCaption,
-              style: TextStyle(fontSize: 20,),
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
         ],

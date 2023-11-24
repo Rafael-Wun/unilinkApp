@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/profile/widget/post_grid.dart';
+import 'package:unilink_project/views/profile/post_grid.dart';
 
 class UserPost extends StatefulWidget {
   const UserPost({super.key});

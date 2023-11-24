@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:unilink_project/view/chat/chat_view.dart';
-import 'package:unilink_project/view/explore/explore_view.dart';
-import 'package:unilink_project/view/home/home_view.dart';
-import 'package:unilink_project/view/profile/profile_view.dart';
+import 'package:unilink_project/views/chat_view.dart';
+import 'package:unilink_project/views/explore_view.dart';
+import 'package:unilink_project/views/home_view.dart';
+import 'package:unilink_project/views/profile_view.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});

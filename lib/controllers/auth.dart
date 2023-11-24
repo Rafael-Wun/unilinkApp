@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/controller/login_or_register.dart';
+import 'package:unilink_project/controllers/login_or_register.dart';
 import 'package:unilink_project/main_menu.dart';
 
 class UserAuth extends StatelessWidget {

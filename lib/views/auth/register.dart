@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/widgets/c_textfield.dart';
+import 'package:unilink_project/views/widgets/customTextField.dart';
 
 class Register extends StatefulWidget {
   final Function()? onTap;
@@ -14,9 +15,19 @@ class _RegisterState extends State<Register> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  final fullNameController = TextEditingController();
+  final nameController = TextEditingController();
   final universityController = TextEditingController();
   final bioController = TextEditingController();
+
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    nameController.dispose();
+    universityController.dispose();
+    bioController.dispose();
+    super.dispose();
+  }
 
   Future SignUp() async {
     showDialog(
@@ -28,18 +39,26 @@ class _RegisterState extends State<Register> {
       },
     );
 
-    try {
-      if (passwordController.text.trim() ==
-          confirmPasswordController.text.trim()) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-        );
-      } else {
-        showErrorMessage("Password don't match!");
-        Navigator.pop(context);
-      }
+    if (passwordController.text != confirmPasswordController.text) {
       Navigator.pop(context);
+      showErrorMessage('Password don\'t match!');
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user!.email)
+          .set({
+        'Name': nameController.text.trim(),
+        'Univ': universityController.text.trim(),
+        'Bio': bioController.text.trim(),
+      });
+      if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(e.code);
@@ -61,12 +80,6 @@ class _RegisterState extends State<Register> {
         );
       },
     );
-  }
-
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
   }
 
   @override
@@ -115,7 +128,7 @@ class _RegisterState extends State<Register> {
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: fullNameController,
+                    controller: nameController,
                     hintText: 'Enter your name',
                     obsecureText: false,
                     keyboardType: TextInputType.name,

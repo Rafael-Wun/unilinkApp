@@ -22,10 +22,15 @@ class _CreatePostState extends State<CreatePost> {
         'Caption': textController.text.trim(),
         'Timestamp': Timestamp.now(),
         'Type': 'text',
+        'Likes': [],
       });
     } else {
       print('Post text is empty, not adding post.');
     }
+
+    setState(() {
+      textController.clear();
+    });
   }
 
   @override
@@ -36,13 +41,6 @@ class _CreatePostState extends State<CreatePost> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 6.0,
-            offset: Offset(0.0, 3.0),
-          ),
-        ],
       ),
       child: Column(
         children: [
@@ -58,9 +56,11 @@ class _CreatePostState extends State<CreatePost> {
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: Colors.grey,
-          backgroundImage: NetworkImage(
-              'https://images.unsplash.com/photo-1699730132083-360f1d7a8f83?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1OXx8fGVufDB8fHx8fA%3D%3D'),
+          backgroundColor: Colors.grey[400],
+          child: Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
         ),
         SizedBox(width: 16.0),
         Expanded(

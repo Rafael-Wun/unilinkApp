@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/chat/widget/message_card.dart';
-import 'package:unilink_project/view/chat/widget/online_bubble.dart';
-import 'package:unilink_project/view/chat/widget/story.dart';
+import 'package:unilink_project/views/widgets/message_card.dart';
+import 'package:unilink_project/views/widgets/online_bubble.dart';
+import 'package:unilink_project/views/widgets/story.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({super.key});

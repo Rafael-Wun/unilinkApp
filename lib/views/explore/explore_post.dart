@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/explore/widget/explore_grid.dart';
+import 'package:unilink_project/views/explore/explore_grid.dart';
 
 class ExplorePost extends StatefulWidget {
   const ExplorePost({super.key});

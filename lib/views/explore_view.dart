@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/view/explore/widget/discover_new.dart';
-import 'package:unilink_project/view/explore/widget/explore_grid.dart';
-import 'package:unilink_project/view/explore/widget/explore_post.dart';
-import 'package:unilink_project/view/explore/widget/search_column.dart';
+import 'package:unilink_project/views/explore/discover_new.dart';
+import 'package:unilink_project/views/explore/explore_grid.dart';
+import 'package:unilink_project/views/explore/explore_post.dart';
+import 'package:unilink_project/views/explore/search_column.dart';
 
 class ExploreView extends StatelessWidget {
   const ExploreView({super.key});
