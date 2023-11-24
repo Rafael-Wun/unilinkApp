@@ -39,12 +39,12 @@ class _UserCoverState extends State<UserCover> {
                   bottomLeft: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0),
                 ),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    'https://images.unsplash.com/photo-1700367056148-3e49cae7fc78?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8fA%3D%3D',
-                  ),
-                  fit: BoxFit.cover,
-                ),
+                // image: DecorationImage(
+                //   image: NetworkImage(
+                //     'https://images.unsplash.com/photo-1700367056148-3e49cae7fc78?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8fA%3D%3D',
+                //   ),
+                //   fit: BoxFit.cover,
+                // ),
               ),
             ),
           ),
@@ -77,9 +77,12 @@ class _UserCoverState extends State<UserCover> {
                   ),
                   CircleAvatar(
                     backgroundColor: Colors.grey.shade400,
-                    backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1699730132083-360f1d7a8f83?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1OXx8fGVufDB8fHx8fA%3D%3D'),
                     radius: 56,
+                    child: Icon(
+                      Icons.person,
+                      size: 64,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                   Column(
                     children: [
