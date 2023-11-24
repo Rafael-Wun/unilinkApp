@@ -20,6 +20,9 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+      ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection("Users")
@@ -37,7 +40,7 @@ class _ProfileViewState extends State<ProfileView> {
                     userName: getUserData['Name'],
                     userBio: getUserData['Bio'],
                   ),
-                  SizedBox(height: 32.0),
+                  SizedBox(height: 24.0),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(

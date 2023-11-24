@@ -9,10 +9,21 @@ class UserCover extends StatefulWidget {
 }
 
 class _UserCoverState extends State<UserCover> {
+  late double screenWidth;
+  late double screenHeight;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 266.5,
+      height: (screenWidth / 16) * 12,
       child: Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
@@ -20,8 +31,8 @@ class _UserCoverState extends State<UserCover> {
           Positioned(
             top: 0,
             child: Container(
-              width: 360.0,
-              height: 202.5,
+              width: screenWidth,
+              height: (screenWidth / 16) * 9,
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.only(
@@ -56,7 +67,7 @@ class _UserCoverState extends State<UserCover> {
                         ),
                       ),
                       Text(
-                        '999',
+                        'N/A',
                         style: TextStyle(
                           fontSize: 14.5,
                           fontWeight: FontWeight.w600,
@@ -80,7 +91,7 @@ class _UserCoverState extends State<UserCover> {
                         ),
                       ),
                       Text(
-                        '999',
+                        'N/A',
                         style: TextStyle(
                           fontSize: 14.5,
                           fontWeight: FontWeight.w600,

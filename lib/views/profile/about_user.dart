@@ -25,7 +25,7 @@ class _AboutUserState extends State<AboutUser> {
             widget.userName,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
             widget.userBio,
             style: TextStyle(
@@ -34,16 +34,6 @@ class _AboutUserState extends State<AboutUser> {
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
-          ),
-          SizedBox(height: 24.0),
-          Wrap(
-            spacing: 16.0,
-            runSpacing: 12.0,
-            children: [
-              _buildTag(),
-              _buildTag(),
-              _buildTag(),
-            ],
           ),
         ],
       ),
