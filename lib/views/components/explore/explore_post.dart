@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/explore/explore_grid.dart';
+import 'package:unilink_project/views/components/explore/explore_grid.dart';
 
 class ExplorePost extends StatefulWidget {
   const ExplorePost({super.key});
@@ -28,13 +28,10 @@ class _ExplorePostState extends State<ExplorePost> {
           TabBar(
             labelPadding: EdgeInsets.only(left: 12.0),
             tabs: tabs,
-            indicatorColor: Colors.white,
             tabAlignment: TabAlignment.start,
             isScrollable: true,
             labelStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             labelColor: Colors.black,
-            // dividerColor: Colors.grey[200],
-            // indicatorColor: Color.fromRGBO(223, 88, 90, 1.0),
           ),
           SizedBox(
             height: 500,

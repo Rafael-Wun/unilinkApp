@@ -109,7 +109,6 @@ class _RegisterState extends State<Register> {
                   CustomTextField(
                     controller: emailController,
                     hintText: 'Enter your e-mail',
-                    obsecureText: false,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
@@ -130,21 +129,18 @@ class _RegisterState extends State<Register> {
                   CustomTextField(
                     controller: nameController,
                     hintText: 'Enter your name',
-                    obsecureText: false,
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
                     controller: universityController,
                     hintText: 'Enter your university',
-                    obsecureText: false,
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
                     controller: bioController,
                     hintText: 'Describe yourself',
-                    obsecureText: false,
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 64.0),

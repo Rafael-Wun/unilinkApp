@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/profile/edit_profile.dart';
-import 'package:unilink_project/views/profile/about_user.dart';
-import 'package:unilink_project/views/profile/user_cover.dart';
-import 'package:unilink_project/views/profile/user_post.dart';
+import 'package:unilink_project/views/components/profile/edit_profile.dart';
+import 'package:unilink_project/views/components/profile/about_user.dart';
+import 'package:unilink_project/views/components/profile/user_cover.dart';
+import 'package:unilink_project/views/components/profile/user_post.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});

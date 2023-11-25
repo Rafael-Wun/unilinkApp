@@ -6,10 +6,12 @@ import 'package:unilink_project/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,10 +19,10 @@ class MyApp extends StatelessWidget {
       title: 'Unilink App',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromRGBO(223, 88, 90, 1.0)),
+            ColorScheme.fromSeed(seedColor: const Color.fromRGBO(223, 88, 90, 1.0)),
         useMaterial3: true,
       ),
-      home: UserAuth(),
+      home: const UserAuth(),
     );
   }
 }

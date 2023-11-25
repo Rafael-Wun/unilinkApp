@@ -5,6 +5,7 @@ import 'package:unilink_project/views/widgets/like_btn.dart';
 
 class SinglePost extends StatefulWidget {
   final String userName;
+  final String? userContent;
   final String userCaption;
   final String postId;
   final String postType;
@@ -13,6 +14,7 @@ class SinglePost extends StatefulWidget {
   const SinglePost({
     Key? key,
     required this.userName,
+    required this.userContent,
     required this.userCaption,
     required this.postId,
     required this.postType,
@@ -63,14 +65,14 @@ class _SinglePostState extends State<SinglePost> {
       margin: const EdgeInsets.only(bottom: 32.0),
       padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
       decoration: BoxDecoration(
-        // image: widget.postType == 'image'
-        //     ? DecorationImage(
-        //         image: NetworkImage(
-        //           'https://images.unsplash.com/photo-1700159915592-004562ddcf6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHx8',
-        //         ),
-        //         fit: BoxFit.cover,
-        //       )
-        //     : null,
+        image: widget.postType == 'image'
+            ? DecorationImage(
+                image: NetworkImage(
+                    // widget.userContent!,
+                    'https://images.unsplash.com/photo-1681008570032-abdfcb23f875?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D'),
+                fit: BoxFit.cover,
+              )
+            : null,
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
       ),

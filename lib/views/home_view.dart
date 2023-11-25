@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/post/create_post.dart';
-import 'package:unilink_project/views/post/single_post.dart';
+import 'package:unilink_project/views/components/post/create_post.dart';
+import 'package:unilink_project/views/components/post/single_post.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -22,10 +22,10 @@ class _HomeViewState extends State<HomeView> {
         toolbarHeight: 0.0,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
         child: Column(
           children: [
-            CreatePost(),
+            const CreatePost(),
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
@@ -41,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
                         final post = snapshot.data!.docs[index];
                         return SinglePost(
                           userName: post['Name'],
+                          userContent: post['Content'],
                           userCaption: post['Caption'],
                           postId: post.id,
                           postType: post['Type'],

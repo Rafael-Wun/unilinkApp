@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:unilink_project/views/chat_view.dart';
@@ -14,8 +13,7 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  final user = FirebaseAuth.instance.currentUser!;
-  PersistentTabController _controller =
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
   @override
@@ -32,21 +30,22 @@ class _MainMenuState extends State<MainMenu> {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
+      itemAnimationProperties: const ItemAnimationProperties(
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
+      screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
-        curve: Curves.ease,
         duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
       ),
       navBarStyle: NavBarStyle.style12,
     );
   }
 
+  // List yang menampung semua main view
   List<Widget> _screenContainers() {
-    return [
+    return const [
       HomeView(),
       ExploreView(),
       ChatView(),
@@ -57,36 +56,36 @@ class _MainMenuState extends State<MainMenu> {
   List<PersistentBottomNavBarItem> _navItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(
+        icon: const Icon(
           Icons.home,
           size: 30,
         ),
         title: ("Home"),
-        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
+        activeColorPrimary: const Color.fromRGBO(223, 88, 90, 1.0),
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.explore),
+        icon: const Icon(Icons.explore),
         title: ("Explore"),
-        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
+        activeColorPrimary: const Color.fromRGBO(223, 88, 90, 1.0),
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(
+        icon: const Icon(
           Icons.chat_bubble,
           size: 26,
         ),
         title: ("Chat"),
-        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
+        activeColorPrimary: const Color.fromRGBO(223, 88, 90, 1.0),
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(
+        icon: const Icon(
           Icons.person,
           size: 30,
         ),
         title: ("Profile"),
-        activeColorPrimary: Color.fromRGBO(223, 88, 90, 1.0),
+        activeColorPrimary: const Color.fromRGBO(223, 88, 90, 1.0),
         inactiveColorPrimary: Colors.grey,
       ),
     ];

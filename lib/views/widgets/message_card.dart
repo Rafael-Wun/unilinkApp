@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/chat/chat_detail.dart';
+import 'package:unilink_project/views/components/chat/chat_detail.dart';
 
 class MessageCard extends StatefulWidget {
   const MessageCard({super.key});

@@ -85,7 +85,6 @@ class LoginState extends State<Login> {
                   CustomTextField(
                     controller: emailController,
                     hintText: 'Enter your e-mail',
-                    obsecureText: false,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
