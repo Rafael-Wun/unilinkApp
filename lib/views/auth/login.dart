@@ -14,7 +14,7 @@ class LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Future SignIn() async {
+  Future signUserIn() async {
     showDialog(
       context: context,
       builder: (context) {
@@ -41,11 +41,11 @@ class LoginState extends State<Login> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Color.fromRGBO(223, 88, 90, 1.0),
+          backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
           title: Center(
             child: Text(
               msg,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         );
@@ -53,6 +53,7 @@ class LoginState extends State<Login> {
     );
   }
 
+  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
@@ -66,7 +67,7 @@ class LoginState extends State<Login> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -91,11 +92,10 @@ class LoginState extends State<Login> {
                   CustomTextField(
                     controller: passwordController,
                     hintText: 'Enter your password',
-                    obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 8.0),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
@@ -106,11 +106,11 @@ class LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 64.0),
                   ElevatedButton(
-                    onPressed: SignIn,
+                    onPressed: signUserIn,
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromRGBO(223, 88, 90, 1.0),
+                      backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Login',
                       style: TextStyle(
                         color: Colors.white,
@@ -122,7 +122,7 @@ class LoginState extends State<Login> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Don\'t have an account?',
                       ),
                       GestureDetector(

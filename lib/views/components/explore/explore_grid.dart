@@ -9,7 +9,6 @@ class ExploreGrid extends StatefulWidget {
 }
 
 class _ExploreGridState extends State<ExploreGrid> {
-
   final List<String> imageUrls = [
     'https://images.unsplash.com/photo-1683009427666-340595e57e43?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8',
     'https://images.unsplash.com/photo-1700319514512-1bcb679e04ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
@@ -28,7 +27,7 @@ class _ExploreGridState extends State<ExploreGrid> {
     return MasonryGridView.builder(
       itemCount: 10,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3),
       itemBuilder: (context, index) {
@@ -36,7 +35,7 @@ class _ExploreGridState extends State<ExploreGrid> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6.0),
           ),
-          margin: EdgeInsets.all(4.0),
+          margin: const EdgeInsets.all(4.0),
           clipBehavior: Clip.antiAlias,
           child: Image.network(
             imageUrls[index],

@@ -14,7 +14,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  final currentUser = FirebaseAuth.instance.currentUser!;
+  final loggedInUser = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _ProfileViewState extends State<ProfileView> {
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection("Users")
-            .doc(currentUser.email)
+            .doc(loggedInUser.email)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

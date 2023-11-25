@@ -1,23 +1,19 @@
-class User {
-  final String id;
-  String name;
-  String email;
-  String univ;
-  String bio;
-  String profile;
-  String cover;
-  List<String> tags;
-  List<String> postID;
+class UserModel {
+  final String uid;
+  final String name;
+  final String univ;
+  final String bio;
+  final List<String> followers;
+  final List<String> following;
+  final List<String> post;
 
-  User({
-    this.id = '',
-    this.name = '',
-    this.email = '',
-    this.univ = '',
-    this.bio = '',
-    this.profile = '',
-    this.cover = '',
-    this.tags = const [],
-    this.postID = const [],
+  UserModel({
+    required this.uid,
+    required this.name,
+    required this.univ,
+    required this.bio,
+    required this.followers,
+    required this.following,
+    required this.post,
   });
 }

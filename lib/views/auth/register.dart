@@ -19,6 +19,7 @@ class _RegisterState extends State<Register> {
   final universityController = TextEditingController();
   final bioController = TextEditingController();
 
+@override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
@@ -29,7 +30,7 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
-  Future SignUp() async {
+  Future signUserUp() async {
     showDialog(
       context: context,
       builder: (context) {
@@ -57,6 +58,9 @@ class _RegisterState extends State<Register> {
         'Name': nameController.text.trim(),
         'Univ': universityController.text.trim(),
         'Bio': bioController.text.trim(),
+        'Followers': [], 
+        'Following': [],
+        'Post': [],
       });
       if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
@@ -70,11 +74,11 @@ class _RegisterState extends State<Register> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Color.fromRGBO(223, 88, 90, 1.0),
+          backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
           title: Center(
             child: Text(
               msg,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         );
@@ -89,7 +93,7 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -145,11 +149,11 @@ class _RegisterState extends State<Register> {
                   ),
                   const SizedBox(height: 64.0),
                   ElevatedButton(
-                    onPressed: SignUp,
+                    onPressed: signUserUp,
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromRGBO(223, 88, 90, 1.0),
+                      backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Register',
                       style: TextStyle(
                         color: Colors.white,
@@ -161,7 +165,7 @@ class _RegisterState extends State<Register> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Already have an account?',
                       ),
                       GestureDetector(

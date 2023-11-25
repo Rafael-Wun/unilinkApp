@@ -1,25 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unilink_project/views/components/post/create_post.dart';
 import 'package:unilink_project/views/components/post/single_post.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final String userName;
+  const HomeView({super.key, required this.userName});
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  final currentUser = FirebaseAuth.instance.currentUser!;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        toolbarHeight: 0.0,
+        title: Text('Hi, ${widget.userName}'),
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),

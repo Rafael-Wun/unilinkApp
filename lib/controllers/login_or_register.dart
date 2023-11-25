@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/authentication/login.dart';
-import 'package:unilink_project/views/authentication/register.dart';
+import 'package:unilink_project/views/auth/login.dart';
+import 'package:unilink_project/views/auth/register.dart';
 
 class LoginOrRegister extends StatefulWidget {
   const LoginOrRegister({super.key});

@@ -13,55 +13,53 @@ class ChatView extends StatelessWidget {
       appBar: AppBar(toolbarHeight: 0.0),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 0.0),
-                  child: Text(
-                    'Online',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 0.0),
+                child: Text(
+                  'Online',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                OnlineFriends(),
-                Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'Stories',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
+              ),
+              onlineFriends(),
+              const Padding(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Text(
+                  'Stories',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                Stories(),
-                Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'Chats',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
+              ),
+              stories(),
+              const Padding(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Text(
+                  'Chats',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                ChatList(),
-              ],
-            ),
+              ),
+              chatList(),
+            ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: Icon(Icons.add),
-        shape: OvalBorder(),
-        splashColor: Color.fromRGBO(223, 88, 90, 1.0),
+        child: const Icon(Icons.add),
+        shape: const OvalBorder(),
+        splashColor: const Color.fromRGBO(223, 88, 90, 1.0),
       ),
     );
   }
 
-  Widget OnlineFriends() {
+  Widget onlineFriends() {
     return Container(
-      margin: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
-      child: SingleChildScrollView(
+      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
+      child: const SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: <Widget>[
@@ -79,10 +77,10 @@ class ChatView extends StatelessWidget {
     );
   }
 
-  Widget Stories() {
+  Widget stories() {
     return Container(
-      margin: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
-      child: SingleChildScrollView(
+      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
+      child: const SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: <Widget>[
@@ -100,8 +98,8 @@ class ChatView extends StatelessWidget {
     );
   }
 
-  Widget ChatList() {
-    return Column(
+  Widget chatList() {
+    return const Column(
       children: <Widget>[
         MessageCard(),
         MessageCard(),
