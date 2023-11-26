@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unilink_project/controllers/auth_controller.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 
 class Login extends StatefulWidget {
@@ -11,52 +11,14 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  Future signUserIn() async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      showErrorMessage(e.code);
-    }
-  }
-
-  void showErrorMessage(String msg) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
-          title: Center(
-            child: Text(
-              msg,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  final _loginController = AuthController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -84,13 +46,13 @@ class LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 56),
                   CustomTextField(
-                    controller: emailController,
+                    controller: _emailController,
                     hintText: 'Enter your e-mail',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     hintText: 'Enter your password',
                     keyboardType: TextInputType.visiblePassword,
                   ),
@@ -106,7 +68,7 @@ class LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 64.0),
                   ElevatedButton(
-                    onPressed: signUserIn,
+                    onPressed: () => _loginController.signUserIn(context, _emailController.text.trim(), _passwordController.text.trim()),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),

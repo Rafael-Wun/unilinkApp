@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unilink_project/controllers/auth_controller.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 
 class Register extends StatefulWidget {
@@ -12,78 +11,23 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final nameController = TextEditingController();
-  final universityController = TextEditingController();
-  final bioController = TextEditingController();
+  final _registerController = AuthController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _universityController = TextEditingController();
+  final _bioController = TextEditingController();
 
-@override
+  @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    nameController.dispose();
-    universityController.dispose();
-    bioController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _nameController.dispose();
+    _universityController.dispose();
+    _bioController.dispose();
     super.dispose();
-  }
-
-  Future signUserUp() async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    if (passwordController.text != confirmPasswordController.text) {
-      Navigator.pop(context);
-      showErrorMessage('Password don\'t match!');
-      return;
-    }
-
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: emailController.text.trim(),
-              password: passwordController.text.trim());
-      FirebaseFirestore.instance
-          .collection('Users')
-          .doc(userCredential.user!.email)
-          .set({
-        'Name': nameController.text.trim(),
-        'Univ': universityController.text.trim(),
-        'Bio': bioController.text.trim(),
-        'Followers': [], 
-        'Following': [],
-        'Post': [],
-      });
-      if (context.mounted) Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      showErrorMessage(e.code);
-    }
-  }
-
-  void showErrorMessage(String msg) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
-          title: Center(
-            child: Text(
-              msg,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
   }
 
   @override
@@ -111,45 +55,53 @@ class _RegisterState extends State<Register> {
                   ),
                   const SizedBox(height: 56),
                   CustomTextField(
-                    controller: emailController,
+                    controller: _emailController,
                     hintText: 'Enter your e-mail',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     hintText: 'Create your password',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: confirmPasswordController,
+                    controller: _confirmPasswordController,
                     hintText: 'Confirm your password',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: nameController,
+                    controller: _nameController,
                     hintText: 'Enter your name',
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: universityController,
+                    controller: _universityController,
                     hintText: 'Enter your university',
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 24),
                   CustomTextField(
-                    controller: bioController,
+                    controller: _bioController,
                     hintText: 'Describe yourself',
                     keyboardType: TextInputType.name,
                   ),
                   const SizedBox(height: 64.0),
                   ElevatedButton(
-                    onPressed: signUserUp,
+                    onPressed: () => _registerController.signUserUp(
+                      context,
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                      _confirmPasswordController.text.trim(),
+                      _nameController.text.trim(),
+                      _universityController.text.trim(),
+                      _bioController.text.trim(),
+                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),

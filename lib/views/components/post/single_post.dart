@@ -14,7 +14,7 @@ class SinglePost extends StatefulWidget {
   const SinglePost({
     Key? key,
     required this.userName,
-    required this.userContent,
+    this.userContent,
     required this.userCaption,
     required this.postId,
     required this.postType,

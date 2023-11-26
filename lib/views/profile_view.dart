@@ -37,8 +37,8 @@ class _ProfileViewState extends State<ProfileView> {
                   UserCover(),
                   SizedBox(height: 24.0),
                   AboutUser(
-                    userName: getUserData['Name'],
-                    userBio: getUserData['Bio'],
+                    userName: getUserData['name'],
+                    userBio: getUserData['bio'],
                   ),
                   SizedBox(height: 24.0),
                   GestureDetector(

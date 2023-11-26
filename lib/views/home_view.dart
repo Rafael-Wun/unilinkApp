@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:unilink_project/models/user_model.dart';
 import 'package:unilink_project/views/components/post/create_post.dart';
 import 'package:unilink_project/views/components/post/single_post.dart';
 
 class HomeView extends StatefulWidget {
-  final String userName;
-  const HomeView({super.key, required this.userName});
+  final UserModel currentUser;
+  const HomeView({super.key, required this.currentUser});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -17,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text('Hi, ${widget.userName}'),
+        title: Text('Hi, ${widget.currentUser.name}'),  // Use FirstName
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
@@ -27,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection("User Posts")
+                    .collection("Posts")
                     .orderBy("Timestamp", descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -39,7 +40,6 @@ class _HomeViewState extends State<HomeView> {
                         final post = snapshot.data!.docs[index];
                         return SinglePost(
                           userName: post['Name'],
-                          userContent: post['Content'],
                           userCaption: post['Caption'],
                           postId: post.id,
                           postType: post['Type'],
