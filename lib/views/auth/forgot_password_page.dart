@@ -19,32 +19,35 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   Future passwordReset() async {
-   try {
-     await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
-     showDialog(
-         context: context,
-         builder: (context) {
-           return AlertDialog(
-             content: Text('Password reset link sent! check your email'),
-           );
-         });
-   } on FirebaseAuthException catch (e) {
-     print(e);
-     showDialog(
-         context: context,
-         builder: (context) {
-           return AlertDialog(
-             content: Text(e.message.toString()),
-           );
-         });
-   }
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('Password reset link sent! check your email'),
+            );
+          });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(e.message.toString()),
+            );
+          });
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        title: Text('Reset Password'),
+      ),
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -53,24 +56,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 0),
-                  const Icon(
-                    Icons.android_rounded,
-                    size: 100,
-                  ),
-                  const Text(
-                    'Reset Password',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                  const SizedBox(height: 56),
                   const Text(
                     'Enter your email and we will send you a password reset link',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18
-                    ),
+                    style: TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 42),
                   CustomTextField(

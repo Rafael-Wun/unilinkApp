@@ -6,6 +6,7 @@ import 'package:unilink_project/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   runApp(const MyApp());
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: const Color.fromRGBO(223, 88, 90, 1.0)),
         useMaterial3: true,
       ),
-      home: const AuthPage(),
+      home: const AuthGate(),
     );
   }
 }

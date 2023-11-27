@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:unilink_project/views/auth/login_or_register.dart';
 import 'package:unilink_project/main_menu.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class AuthGate extends StatefulWidget {
+  const AuthGate({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthGate> createState() => _AuthGateState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthGateState extends State<AuthGate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

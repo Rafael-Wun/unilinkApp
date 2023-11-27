@@ -33,15 +33,6 @@ class AuthController {
     String university,
     String bio,
   ) async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -51,6 +42,7 @@ class AuthController {
       _firestore.collection('Users').doc(userCredential.user!.email).set(
             UserModel(
               uid: userCredential.user!.uid,
+              email: userCredential.user!.email.toString(),
               name: name,
               university: university,
               bio: bio,
@@ -59,9 +51,7 @@ class AuthController {
               post: [],
             ).toMap(),
           );
-      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
       showErrorMessage(context, e.code);
     }
   }
@@ -70,19 +60,10 @@ class AuthController {
     BuildContext context,
     String email,
     String password,
-  ) async{
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
+  ) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -91,11 +72,10 @@ class AuthController {
           .collection('Users')
           .doc(userCredential.user!.email)
           .get();
-      UserModel loggedInUser = UserModel.fromMap(userSnapshot.data() as Map<String, dynamic>);
+      UserModel loggedInUser =
+          UserModel.fromMap(userSnapshot.data() as Map<String, dynamic>);
       print("Logged In User: ${loggedInUser.name}");
-      if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
       showErrorMessage(context, e.code);
     }
   }

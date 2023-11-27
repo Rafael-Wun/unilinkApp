@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/components/chat/chat_detail.dart';
 
 class MessageCard extends StatefulWidget {
   const MessageCard({super.key});
@@ -12,12 +11,12 @@ class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ChatDetail()),
-        );
-      },
+      // onTap: () {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => ChatDetail()),
+      //   );
+      // },
       child: Container(
         margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
         decoration: BoxDecoration(

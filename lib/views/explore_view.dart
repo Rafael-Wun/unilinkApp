@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unilink_project/views/components/explore/explore_post.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
-import 'package:unilink_project/views/widgets/story.dart';
 
 class ExploreView extends StatefulWidget {
   const ExploreView({super.key});
@@ -32,7 +31,6 @@ class _ExploreViewState extends State<ExploreView> {
                   'Discover New Friends',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                Discover(),
                 ExplorePost(),
               ],
             ),
@@ -55,27 +53,6 @@ class _ExploreViewState extends State<ExploreView> {
             borderRadius: 50.0,
           )
         ],
-      ),
-    );
-  }
-
-  Widget Discover() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 16.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: <Widget>[
-            Story(),
-            Story(),
-            Story(),
-            Story(),
-            Story(),
-            Story(),
-            Story(),
-            Story(),
-          ],
-        ),
       ),
     );
   }
