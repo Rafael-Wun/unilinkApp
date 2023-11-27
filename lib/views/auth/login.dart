@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:unilink_project/controllers/auth_controller.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 
+import 'forgot_password_page.dart';
+
 class Login extends StatefulWidget {
   final Function()? onTap;
   const Login({super.key, required this.onTap});
@@ -58,12 +60,19 @@ class LoginState extends State<Login> {
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 8.0),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.blue),
+                      GestureDetector (
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return ForgotPasswordPage();
+                          },),);
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.blue),
+                        ),
                       )
                     ],
                   ),
