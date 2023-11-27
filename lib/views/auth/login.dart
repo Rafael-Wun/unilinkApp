@@ -53,6 +53,7 @@ class LoginState extends State<Login> {
                   const SizedBox(height: 24),
                   CustomTextField(
                     controller: _passwordController,
+                    obsecureText: true,
                     hintText: 'Enter your password',
                     keyboardType: TextInputType.visiblePassword,
                   ),
@@ -68,7 +69,10 @@ class LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 64.0),
                   ElevatedButton(
-                    onPressed: () => _loginController.signUserIn(context, _emailController.text.trim(), _passwordController.text.trim()),
+                    onPressed: () => _loginController.signUserIn(
+                        context,
+                        _emailController.text.trim(),
+                        _passwordController.text.trim()),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),

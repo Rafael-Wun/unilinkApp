@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/models/user_model.dart';
 import 'package:unilink_project/views/components/post/create_post.dart';
-import 'package:unilink_project/views/components/post/single_post.dart';
+import 'package:unilink_project/views/components/post/image_post.dart';
+import 'package:unilink_project/views/components/post/text_post.dart';
 
 class HomeView extends StatefulWidget {
-  final UserModel currentUser;
-  const HomeView({super.key, required this.currentUser});
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -18,7 +17,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text('Hi, ${widget.currentUser.name}'),  // Use FirstName
+        title: Text('Hi,'), // Use FirstName
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
@@ -26,39 +25,52 @@ class _HomeViewState extends State<HomeView> {
           children: [
             const CreatePost(),
             Expanded(
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection("Posts")
-                    .orderBy("Timestamp", descending: true)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        final post = snapshot.data!.docs[index];
-                        return SinglePost(
-                          userName: post['Name'],
-                          userCaption: post['Caption'],
-                          postId: post.id,
-                          postType: post['Type'],
-                          likes: List<String>.from(post['Likes'] ?? []),
-                        );
-                      },
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Error:${snapshot.error}'),
-                    );
-                  }
-                  return const Center(child: CircularProgressIndicator());
-                },
-              ),
+              child: _buildPostList(),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPostList() {
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance.collection('Posts').orderBy('timestamp', descending: true).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          var posts = snapshot.data!.docs;
+
+          return ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              var post = posts[index].data() as Map<String, dynamic>;
+
+              if (post['type'] == "image") {
+                return ImagePostCard(
+                  postid: post['id'],
+                  postContent: post['content'],
+                  postCaption: post['caption'],
+                  likes: List<String>.from(post['likes']),
+                  uid: post['uid'],
+                );
+              } else if (post['type'] == "text") {
+                return TextPostCard(
+                  postid: post['id'],
+                  postCaption: post['caption'],
+                  likes: List<String>.from(post['likes']),
+                  uid: post['uid'],
+                );
+              } else {
+                return Container(child: Text('Something went wrong'));
+              }
+            },
+          );
+        }
+      },
     );
   }
 }

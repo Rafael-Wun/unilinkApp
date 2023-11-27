@@ -1,4 +1,5 @@
 class UserModel {
+  final String uid;
   final String name;
   final String university;
   final String bio;
@@ -7,6 +8,7 @@ class UserModel {
   final List<String> post;
 
   UserModel({
+    required this.uid,
     required this.name,
     required this.university,
     required this.bio,
@@ -17,6 +19,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
+      uid: map['uid'] ?? '',
       name: map['name'] ?? '',
       university: map['university'] ?? '',
       bio: map['bio'] ?? '',
@@ -28,6 +31,7 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'uid': uid,
       'name': name,
       'university': university,
       'bio': bio,

@@ -50,6 +50,7 @@ class AuthController {
       );
       _firestore.collection('Users').doc(userCredential.user!.email).set(
             UserModel(
+              uid: userCredential.user!.uid,
               name: name,
               university: university,
               bio: bio,
@@ -92,7 +93,7 @@ class AuthController {
           .get();
       UserModel loggedInUser = UserModel.fromMap(userSnapshot.data() as Map<String, dynamic>);
       print("Logged In User: ${loggedInUser.name}");
-      Navigator.pop(context);
+      if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(context, e.code);

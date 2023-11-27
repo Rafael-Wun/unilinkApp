@@ -31,13 +31,20 @@ class _CreateNewPostState extends State<CreateNewPost> {
       await ref.putFile(file);
       final contentURL = await ref.getDownloadURL();
 
-      await FirebaseFirestore.instance.collection("User Posts").add({
-        'Name': currentUser.email,
-        'Content': contentURL,
-        'Caption': captionController.text.trim(),
-        'Timestamp': Timestamp.now(),
-        'Type': 'text',
-        'Likes': [],
+      final postRef = await FirebaseFirestore.instance.collection('Posts').add({
+        'id': '',
+        'content': contentURL,
+        'caption': captionController.text.trim(),
+        'timestamp': Timestamp.now(),
+        'type': 'image',
+        'likes': [],
+        'uid': currentUser.email,
+      });
+
+      final postId = postRef.id;
+
+      await FirebaseFirestore.instance.collection("Posts").doc(postId).update({
+        'id': postId,
       });
 
       setState(() {
@@ -86,7 +93,6 @@ class _CreateNewPostState extends State<CreateNewPost> {
               CustomTextField(
                 controller: captionController,
                 hintText: 'Description',
-                obsecureText: false,
                 keyboardType: TextInputType.text,
               ),
             ],

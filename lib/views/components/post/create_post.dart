@@ -13,7 +13,7 @@ class CreatePost extends StatefulWidget {
 
 class _CreatePostState extends State<CreatePost> {
   final currentUser = FirebaseAuth.instance.currentUser!;
-  final textController = TextEditingController();
+  final captionController = TextEditingController();
 
   Future chooseFile() async {
     final selectedFile = await FilePicker.platform.pickFiles();
@@ -23,24 +23,37 @@ class _CreatePostState extends State<CreatePost> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) =>
-              CreateNewPost(userContent: selectedFile.files.first)),
+        builder: (context) => CreateNewPost(
+          userContent: selectedFile.files.first,
+        ),
+      ),
     );
   }
 
-  void postMsg() {
-    FirebaseFirestore.instance.collection("User Posts").add({
-      'Name': currentUser.email,
-      'Content': null,
-      'Caption': textController.text.trim(),
-      'Timestamp': Timestamp.now(),
-      'Type': 'text',
-      'Likes': [],
-    });
+  void postMsg() async {
+    try {
+      final postRef = await FirebaseFirestore.instance.collection('Posts').add({
+        'id': '',
+        'content': '',
+        'caption': captionController.text.trim(),
+        'timestamp': Timestamp.now(),
+        'type': 'text',
+        'likes': [],
+        'uid': currentUser.email,
+      });
 
-    setState(() {
-      textController.clear();
-    });
+      final postId = postRef.id;
+
+      await FirebaseFirestore.instance.collection("Posts").doc(postId).update({
+        'id': postId,
+      });
+
+      setState(() {
+        captionController.clear();
+      });
+    } catch (e) {
+      print("Error during uploadPost: $e");
+    }
   }
 
   @override
@@ -82,7 +95,7 @@ class _CreatePostState extends State<CreatePost> {
               borderRadius: BorderRadius.circular(50.0),
             ),
             child: TextField(
-              controller: textController,
+              controller: captionController,
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
                 hintText: 'Write Something',
@@ -113,18 +126,6 @@ class _CreatePostState extends State<CreatePost> {
             ],
           ),
         ),
-        GestureDetector(
-          child: Row(
-            children: [
-              Icon(
-                Icons.video_collection,
-                size: 20.0,
-              ),
-              SizedBox(width: 8.0),
-              Text('Video'),
-            ],
-          ),
-        )
       ],
     );
   }
