@@ -43,10 +43,12 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 40),
-                  const Icon(
-                    Icons.android_rounded,
-                    size: 100,
-                  ),
+                  // const Icon(
+                  //   Icons.android_rounded,
+                  //   size: 100,
+                  // ),
+                  Image.asset('assets/images/unilink-high-resolution-logo-transparent - Copy.png', height: 200, width: 200,),
+                  // SizedBox(height: 20),
                   const Text(
                     'Create an Account',
                     style: TextStyle(
