@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unilink_project/views/widgets/customTextField.dart';
 import 'package:unilink_project/views/widgets/like_btn.dart';
 
 class TextPostCard extends StatefulWidget {
@@ -25,6 +26,9 @@ class _TextPostCardState extends State<TextPostCard> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   bool isLiked = false;
   String? userName;
+
+  //comment controller
+  final _commentTextController = TextEditingController();
 
   @override
   void initState() {
@@ -69,6 +73,54 @@ class _TextPostCardState extends State<TextPostCard> {
         'likes': FieldValue.arrayRemove([currentUser.uid])
       });
     }
+  }
+
+  // add a comment
+  void addComment(String commentText){
+    FirebaseFirestore.instance
+        .collection("User Posts")
+        .doc(widget.postid)
+        .collection("Comments")
+        .add({
+          "CommentText" : commentText,
+          "CommentBy" : currentUser.email,
+          "CommentText" : Timestamp.now(),
+        });
+  }
+
+  void showCommentDialog() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Add Comment'),
+          content: TextField( //customtextfield
+            controller: _commentTextController,
+            decoration: InputDecoration(hintText: "Write a comment..."),
+          ),
+          actions: [
+            //SAVE button
+            TextButton(
+                onPressed: (){
+                  addComment(_commentTextController.text);
+
+                    Navigator.pop(context);
+
+                    _commentTextController.clear();
+                },
+                child: Text("Post"),
+            ),
+            // cancel button
+            TextButton(
+                onPressed: (){
+                  Navigator.pop(context);
+
+                  _commentTextController.clear();
+              },
+                child: Text("Cancel"),
+            )
+          ],
+        ),
+    );
   }
 
   @override
