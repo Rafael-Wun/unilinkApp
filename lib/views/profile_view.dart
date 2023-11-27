@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:unilink_project/views/components/profile/edit_profile.dart';
 import 'package:unilink_project/views/components/profile/about_user.dart';
 import 'package:unilink_project/views/components/profile/user_cover.dart';
-import 'package:unilink_project/views/components/profile/user_post.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -34,11 +33,12 @@ class _ProfileViewState extends State<ProfileView> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  UserCover(),
+                  UserCover(profilePicture: getUserData['profile']),
                   SizedBox(height: 24.0),
                   AboutUser(
                     userName: getUserData['name'],
                     userBio: getUserData['bio'],
+                    userUniv: getUserData['university'],
                   ),
                   SizedBox(height: 24.0),
                   GestureDetector(
@@ -65,7 +65,6 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                   ),
                   SizedBox(height: 8.0),
-                  UserPost(),
                 ],
               ),
             );

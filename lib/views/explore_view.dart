@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:unilink_project/views/components/explore/explore_post.dart';
-import 'package:unilink_project/views/widgets/customTextField.dart';
+import 'package:unilink_project/views/components/explore/explore_friend.dart';
 
 class ExploreView extends StatefulWidget {
   const ExploreView({super.key});
@@ -19,41 +19,40 @@ class _ExploreViewState extends State<ExploreView> {
       appBar: AppBar(
         toolbarHeight: 0.0,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SearchBar(),
-                Text(
-                  'Discover New Friends',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                ExplorePost(),
-              ],
-            ),
-          ),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+        child: Column(
+          children: [
+            Expanded(child: _buildUserList()),
+          ],
         ),
       ),
     );
   }
 
-  Widget SearchBar() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 24.0),
-      child: Column(
-        children: [
-          CustomTextField(
-            controller: searchController,
-            hintText: 'Search',
-            keyboardType: TextInputType.name,
-            border: true,
-            borderRadius: 50.0,
-          )
-        ],
-      ),
+  Widget _buildUserList() {
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading...');
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          var users = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: users.length,
+            itemBuilder: (context, index) {
+              var user = users[index].data() as Map<String, dynamic>;
+              return ExploreFriend(
+                userName: user['name'],
+                userProfile: user['profile'],
+                userBio: user['bio'],
+              );
+            },
+          );
+        }
+      },
     );
   }
 }

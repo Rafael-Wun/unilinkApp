@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserCover extends StatefulWidget {
-  const UserCover({super.key});
+  final String profilePicture;
+  const UserCover({super.key, required this.profilePicture});
 
   @override
   State<UserCover> createState() => _UserCoverState();
@@ -14,7 +15,6 @@ class _UserCoverState extends State<UserCover> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
@@ -78,11 +78,7 @@ class _UserCoverState extends State<UserCover> {
                   CircleAvatar(
                     backgroundColor: Colors.grey.shade400,
                     radius: 56,
-                    child: Icon(
-                      Icons.person,
-                      size: 64,
-                      color: Colors.grey.shade600,
-                    ),
+                    backgroundImage: NetworkImage(widget.profilePicture),
                   ),
                   Column(
                     children: [

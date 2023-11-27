@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unilink_project/controllers/chat_service.dart';
+import 'package:unilink_project/views/widgets/bubble_chat.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 
 class ChatPage extends StatefulWidget {
@@ -20,6 +21,30 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _msgController = TextEditingController();
   final ChatService _chatService = ChatService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String? receiverName;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
+  }
+
+  void loadUserData() async {
+    try {
+      var userDoc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(widget.receiverUserEmail)
+          .get();
+      if (userDoc.exists) {
+        var userData = userDoc.data() as Map<String, dynamic>;
+        setState(() {
+          receiverName = userData['name'];
+        });
+      }
+    } catch (e) {
+      print("Error loading username: $e");
+    }
+  }
 
   void sendMessage() async {
     if (_msgController.text.isNotEmpty) {
@@ -32,15 +57,19 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.receiverUserEmail),
+        title: Text(receiverName ?? 'Loading...'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: _buildMessageList(),
-          ),
-          _buildMessageInput(),
-        ],
+      body: Container(
+        margin: EdgeInsets.only(bottom: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: _buildMessageList(),
+            ),
+            _buildMessageInput(),
+          ],
+        ),
       ),
     );
   }
@@ -76,11 +105,19 @@ class _ChatPageState extends State<ChatPage> {
 
     return Container(
       alignment: alignment,
-      child: Column(
-        children: [
-          Text(data['senderEmail']),
-          Text(data['message']),
-        ],
+      child: Container(
+        margin: EdgeInsets.only(top: 4.0),
+        child: Column(
+          crossAxisAlignment: (data['senderId'] == _auth.currentUser!.uid)
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.start,
+          mainAxisAlignment: (data['senderId'] == _auth.currentUser!.uid)
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.start,
+          children: [
+            BubbleChat(msg: data['message']),
+          ],
+        ),
       ),
     );
   }
@@ -93,11 +130,16 @@ class _ChatPageState extends State<ChatPage> {
             controller: _msgController,
             hintText: 'Enter a message',
             keyboardType: TextInputType.text,
+            border: true,
+            borderRadius: 50.0,
           ),
         ),
         IconButton(
           onPressed: sendMessage,
-          icon: const Icon(Icons.send_rounded),
+          icon: const Icon(
+            Icons.send_rounded,
+            color: Colors.grey,
+          ),
         ),
       ],
     );

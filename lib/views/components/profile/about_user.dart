@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class AboutUser extends StatefulWidget {
   final String userName;
   final String userBio;
+  final String userUniv;
   const AboutUser({
     super.key,
     required this.userName,
     required this.userBio,
+    required this.userUniv,
   });
 
   @override
@@ -25,6 +27,8 @@ class _AboutUserState extends State<AboutUser> {
             widget.userName,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 8.0),
+          Text('from University of ${widget.userUniv}'),
           const SizedBox(height: 8.0),
           Text(
             widget.userBio,

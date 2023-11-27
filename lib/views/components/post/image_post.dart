@@ -105,7 +105,7 @@ class _ImagePostCardState extends State<ImagePostCard> {
     return IntrinsicWidth(
       child: Container(
         margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.fromLTRB(6.0, 6.0, 10.0, 6.0),
+        padding: EdgeInsets.fromLTRB(6.0, 6.0, 16.0, 6.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50.0),
           color: Color.fromRGBO(255, 255, 255, .5),

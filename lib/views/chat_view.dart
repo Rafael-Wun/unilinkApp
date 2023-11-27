@@ -46,19 +46,37 @@ class _ChatViewState extends State<ChatView> {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     if (_auth.currentUser!.email != data['email']) {
-      return ListTile(
-        title: Text(data['name']),
+      return GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
-                receiverUserEmail: data['email'],
-                receiverUserID: data['uid'],
-              ),
+                  receiverUserEmail: data['email'],
+                  receiverUserID: data['uid']),
             ),
           );
         },
+        child: Container(
+          margin: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+          padding: EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey[350],
+                child: Icon(
+                  Icons.person,
+                  color: Colors.grey,
+                ),
+                radius: 24,
+              ),
+              const SizedBox(width: 16.0),
+              Text(data['name']),
+            ],
+          ),
+        ),
       );
     } else {
       return Container();

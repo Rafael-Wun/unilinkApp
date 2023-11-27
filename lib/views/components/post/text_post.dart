@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unilink_project/views/widgets/comment_btn.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 import 'package:unilink_project/views/widgets/like_btn.dart';
 
@@ -26,8 +27,6 @@ class _TextPostCardState extends State<TextPostCard> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   bool isLiked = false;
   String? userName;
-
-  //comment controller
   final _commentTextController = TextEditingController();
 
   @override
@@ -41,10 +40,10 @@ class _TextPostCardState extends State<TextPostCard> {
     try {
       var userDoc = await FirebaseFirestore.instance
           .collection('Users')
-          .doc(widget.uid)
+          .where('email', isEqualTo: widget.uid)
           .get();
-      if (userDoc.exists) {
-        var userData = userDoc.data() as Map<String, dynamic>;
+      if (userDoc.docs.isNotEmpty) {
+        var userData = userDoc.docs.first.data() as Map<String, dynamic>;
         setState(() {
           userName = userData['name'];
         });
@@ -75,51 +74,48 @@ class _TextPostCardState extends State<TextPostCard> {
     }
   }
 
-  // add a comment
-  void addComment(String commentText){
+  void addComment(String commentText) {
     FirebaseFirestore.instance
-        .collection("User Posts")
+        .collection("Posts")
         .doc(widget.postid)
         .collection("Comments")
         .add({
-          "CommentText" : commentText,
-          "CommentBy" : currentUser.email,
-          "CommentText" : Timestamp.now(),
-        });
+      "CommentText": commentText,
+      "CommentBy": currentUser.email,
+      "timestamp": Timestamp.now(),
+    });
   }
 
   void showCommentDialog() {
     showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Add Comment'),
-          content: TextField( //customtextfield
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Add Comment'),
+        content: CustomTextField(
             controller: _commentTextController,
-            decoration: InputDecoration(hintText: "Write a comment..."),
+            hintText: 'Enter a comment',
+            keyboardType: TextInputType.text),
+        actions: [
+          TextButton(
+            onPressed: () {
+              addComment(_commentTextController.text);
+
+              Navigator.pop(context);
+
+              _commentTextController.clear();
+            },
+            child: Text("Post"),
           ),
-          actions: [
-            //SAVE button
-            TextButton(
-                onPressed: (){
-                  addComment(_commentTextController.text);
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
 
-                    Navigator.pop(context);
-
-                    _commentTextController.clear();
-                },
-                child: Text("Post"),
-            ),
-            // cancel button
-            TextButton(
-                onPressed: (){
-                  Navigator.pop(context);
-
-                  _commentTextController.clear();
-              },
-                child: Text("Cancel"),
-            )
-          ],
-        ),
+              _commentTextController.clear();
+            },
+            child: Text("Cancel"),
+          )
+        ],
+      ),
     );
   }
 
@@ -148,7 +144,7 @@ class _TextPostCardState extends State<TextPostCard> {
     return IntrinsicWidth(
       child: Container(
         margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.fromLTRB(6.0, 6.0, 10.0, 6.0),
+        padding: EdgeInsets.fromLTRB(6.0, 6.0, 16.0, 6.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50.0),
           color: const Color.fromRGBO(223, 88, 90, 1.0),
@@ -176,14 +172,14 @@ class _TextPostCardState extends State<TextPostCard> {
         children: [
           Row(
             children: [
-              Text(
-                widget.postCaption,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
+              Expanded(
+                child: Text(
+                  widget.postCaption,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                  ),
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
               ),
             ],
           ),
@@ -209,13 +205,8 @@ class _TextPostCardState extends State<TextPostCard> {
               const SizedBox(width: 8.0),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.comment_rounded,
-                      color: Colors.black,
-                    ),
-                  ),
+                  CommentButton(onTap: showCommentDialog),
+                  const SizedBox(width: 8.0),
                   Text(
                     '0',
                     style: TextStyle(

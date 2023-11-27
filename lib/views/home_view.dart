@@ -17,16 +17,14 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text('Hi,'), // Use FirstName
+        toolbarHeight: 0.0,
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
         child: Column(
           children: [
             const CreatePost(),
-            Expanded(
-              child: _buildPostList(),
-            ),
+            Expanded(child: _buildPostList()),
           ],
         ),
       ),
@@ -35,10 +33,13 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _buildPostList() {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      stream: FirebaseFirestore.instance.collection('Posts').orderBy('timestamp', descending: true).snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('Posts')
+          .orderBy('timestamp', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const Text('Loading...');
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {

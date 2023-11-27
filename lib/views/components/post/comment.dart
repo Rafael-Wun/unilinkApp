@@ -22,18 +22,15 @@ class Comment extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //comment
           Text(text),
-
           const SizedBox(height: 5),
-          //time (user)
           Row(
             children: [
               Text(userName, style: TextStyle(color: Colors.grey),),
               Text(" . ", style: TextStyle(color: Colors.grey),),
               Text(time, style: TextStyle(color: Colors.grey),),
             ],
-          )
+          ),
         ],
       ),
     );
