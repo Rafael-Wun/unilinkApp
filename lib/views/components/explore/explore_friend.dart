@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExploreFriend extends StatefulWidget {
-  final String userProfile;
+  final String? userProfile;
   final String userName;
   final String userBio;
 
@@ -29,7 +29,8 @@ class _ExploreFriendState extends State<ExploreFriend> {
         color: Colors.grey[300],
         image: DecorationImage(
           image: NetworkImage(
-            widget.userProfile,
+            widget.userProfile ??
+                'https://th.bing.com/th/id/OIP.x5dr_hbXDMeN4xLftKIeugHaHa?w=215&h=215&c=7&r=0&o=5&pid=1.7',
           ),
           fit: BoxFit.cover,
         ),
