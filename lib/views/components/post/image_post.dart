@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:unilink_project/main.dart';
 import 'package:unilink_project/models/post.dart';
 import 'package:unilink_project/models/user_model.dart';
+import 'package:unilink_project/views/components/profile/other_user_profile.dart';
 import 'package:unilink_project/views/widgets/comment_btn.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 import 'package:unilink_project/views/widgets/like_btn.dart';
@@ -129,15 +130,8 @@ class _ImagePostCardState extends State<ImagePostCard> {
     return FutureBuilder(
       future: getPostData(widget.postID),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return const Text('Error loading post data');
-        } else {
+        if (snapshot.hasData) {
           Post postData = snapshot.data!;
-
           return Container(
             width: deviceWidth - 32,
             height: deviceWidth - 32,
@@ -145,7 +139,7 @@ class _ImagePostCardState extends State<ImagePostCard> {
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
-              color: Colors.grey[300],
+              color: Colors.white,
               image: DecorationImage(
                 image: NetworkImage(postData.content!),
                 fit: BoxFit.cover,
@@ -160,7 +154,11 @@ class _ImagePostCardState extends State<ImagePostCard> {
               ],
             ),
           );
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error${snapshot.error}'));
         }
+
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
@@ -176,27 +174,39 @@ class _ImagePostCardState extends State<ImagePostCard> {
         } else {
           UserModel authorData = snapshot.data!;
 
-          return IntrinsicWidth(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              padding: EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 0, 0, .35),
-                borderRadius: BorderRadius.circular(50.0),
-              ),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[350],
-                    backgroundImage: NetworkImage(authorData.profile),
-                  ),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    authorData.name,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Colors.white),
-                  ),
-                ],
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return OtherUserProfile(userID: authorData.email);
+                  },
+                ),
+              );
+            },
+            child: IntrinsicWidth(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 8.0),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(0, 0, 0, .35),
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[350],
+                      backgroundImage: NetworkImage(authorData.profile),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      authorData.name,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
