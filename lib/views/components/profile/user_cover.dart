@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 
 class UserCover extends StatefulWidget {
   final String profilePicture;
-  const UserCover({super.key, required this.profilePicture});
+  final List<String> followers;
+  final List<String> following;
+  const UserCover({
+    super.key,
+    required this.profilePicture,
+    required this.followers,
+    required this.following,
+  });
 
   @override
   State<UserCover> createState() => _UserCoverState();
@@ -61,7 +68,7 @@ class _UserCoverState extends State<UserCover> {
                         ),
                       ),
                       Text(
-                        'N/A',
+                        widget.followers.length.toString(),
                         style: TextStyle(
                           fontSize: 14.5,
                           fontWeight: FontWeight.w600,
@@ -84,7 +91,7 @@ class _UserCoverState extends State<UserCover> {
                         ),
                       ),
                       Text(
-                        'N/A',
+                        widget.following.length.toString(),
                         style: TextStyle(
                           fontSize: 14.5,
                           fontWeight: FontWeight.w600,

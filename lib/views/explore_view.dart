@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unilink_project/views/components/explore/explore_friend.dart';
 
@@ -43,11 +44,16 @@ class _ExploreViewState extends State<ExploreView> {
             itemCount: users.length,
             itemBuilder: (context, index) {
               var user = users[index].data() as Map<String, dynamic>;
-              return ExploreFriend(
-                userName: user['name'],
-                userProfile: user['profile'],
-                userBio: user['bio'],
-              );
+              if (FirebaseAuth.instance.currentUser!.email != user['email']) {
+                return ExploreFriend(
+                  uid: user['email'],
+                  userName: user['name'],
+                  userProfile: user['profile'],
+                  userBio: user['bio'],
+                );
+              } else {
+                return Container();
+              }
             },
           );
         }

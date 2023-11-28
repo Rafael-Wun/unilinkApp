@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ExploreFriend extends StatefulWidget {
+  final String uid;
   final String? userProfile;
   final String userName;
   final String userBio;
 
   const ExploreFriend({
     super.key,
+    required this.uid,
     required this.userName,
     required this.userProfile,
     required this.userBio,
@@ -17,6 +21,35 @@ class ExploreFriend extends StatefulWidget {
 }
 
 class _ExploreFriendState extends State<ExploreFriend> {
+  final currentUser = FirebaseAuth.instance.currentUser!;
+  bool isFollowed = false;
+
+  void toogleFollow() {
+    setState(() {
+      isFollowed = !isFollowed;
+    });
+
+    DocumentReference userRef =
+        FirebaseFirestore.instance.collection('Users').doc(widget.uid);
+    DocumentReference currentUserRef = FirebaseFirestore.instance.collection('Users').doc(currentUser.email);
+
+    if (isFollowed) {
+      userRef.update({
+        'followers': FieldValue.arrayUnion([currentUser.email])
+      });
+      currentUserRef.update({
+        'following': FieldValue.arrayUnion([widget.uid])
+      });
+    } else {
+      userRef.update({
+        'followers': FieldValue.arrayRemove([currentUser.email])
+      });
+      currentUserRef.update({
+        'following': FieldValue.arrayRemove([widget.uid])
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +83,10 @@ class _ExploreFriendState extends State<ExploreFriend> {
                       style: TextStyle(color: Colors.white),
                     ),
                     const SizedBox(width: 16.0),
-                    ElevatedButton(onPressed: () {}, child: Text('Follow'))
+                    ElevatedButton(
+                      onPressed: toogleFollow,
+                      child: Text(isFollowed ? 'Followed' : 'Follow'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 4.0),

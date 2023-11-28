@@ -4,6 +4,7 @@ class AboutUser extends StatefulWidget {
   final String userName;
   final String userBio;
   final String userUniv;
+
   const AboutUser({
     super.key,
     required this.userName,

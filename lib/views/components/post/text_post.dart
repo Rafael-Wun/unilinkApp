@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:unilink_project/main.dart';
 import 'package:unilink_project/models/post.dart';
 import 'package:unilink_project/models/user_model.dart';
+import 'package:unilink_project/views/components/profile/other_user_profile.dart';
 import 'package:unilink_project/views/widgets/comment_btn.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 import 'package:unilink_project/views/widgets/like_btn.dart';
@@ -45,11 +46,11 @@ class _TextPostCardState extends State<TextPostCard> {
 
     if (isLiked) {
       postRef.update({
-        'likes': FieldValue.arrayUnion([currentUser.uid])
+        'likes': FieldValue.arrayUnion([currentUser.email])
       });
     } else {
       postRef.update({
-        'likes': FieldValue.arrayRemove([currentUser.uid])
+        'likes': FieldValue.arrayRemove([currentUser.email])
       });
     }
   }
@@ -70,7 +71,7 @@ class _TextPostCardState extends State<TextPostCard> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Add Comment'),
+        title: const Text('Add Comment'),
         content: CustomTextField(
             controller: _commentTextController,
             hintText: 'Enter a comment',
@@ -82,14 +83,14 @@ class _TextPostCardState extends State<TextPostCard> {
               Navigator.pop(context);
               _commentTextController.clear();
             },
-            child: Text("Post"),
+            child: const Text("Post"),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               _commentTextController.clear();
             },
-            child: Text("Cancel"),
+            child: const Text("Cancel"),
           )
         ],
       ),
@@ -128,7 +129,7 @@ class _TextPostCardState extends State<TextPostCard> {
   Widget build(BuildContext context) {
     return Container(
       width: deviceWidth - 32,
-      margin: EdgeInsets.only(bottom: 24.0),
+      margin: const EdgeInsets.only(bottom: 24.0),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
@@ -156,21 +157,33 @@ class _TextPostCardState extends State<TextPostCard> {
         } else {
           UserModel authorData = snapshot.data!;
 
-          return IntrinsicWidth(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[350],
-                    backgroundImage: NetworkImage(authorData.profile),
-                  ),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    authorData.name,
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ],
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return OtherUserProfile(userID: authorData.email);
+                  },
+                ),
+              );
+            },
+            child: IntrinsicWidth(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[350],
+                      backgroundImage: NetworkImage(authorData.profile),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      authorData.name,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -191,7 +204,7 @@ class _TextPostCardState extends State<TextPostCard> {
           Post postData = snapshot.data!;
 
           return Container(
-            padding: EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 18.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 18.0),
             child: Column(
               children: [
                 Row(
@@ -231,7 +244,7 @@ class _TextPostCardState extends State<TextPostCard> {
                       children: [
                         CommentButton(onTap: showCommentDialog),
                         const SizedBox(width: 8.0),
-                        Text(
+                        const Text(
                           '0',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,

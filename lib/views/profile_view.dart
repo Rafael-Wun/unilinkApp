@@ -35,7 +35,11 @@ class _ProfileViewState extends State<ProfileView> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                UserCover(profilePicture: getUserData['profile']),
+                UserCover(
+                  profilePicture: getUserData['profile'],
+                  followers: List<String>.from(getUserData['followers']),
+                  following: List<String>.from(getUserData['following']),
+                ),
                 SizedBox(height: 24.0),
                 AboutUser(
                   userName: getUserData['name'],
