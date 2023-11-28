@@ -16,15 +16,14 @@ class _ExploreViewState extends State<ExploreView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        toolbarHeight: 0.0,
-      ),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            Expanded(child: _buildUserList()),
-          ],
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+          child: Column(
+            children: [
+              Expanded(child: _buildUserList()),
+            ],
+          ),
         ),
       ),
     );

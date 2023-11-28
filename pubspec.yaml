@@ -71,7 +71,7 @@ flutter:
     - assets/images/globe.jpg
     - assets/images/barcelona.jpg
     - assets/images/bali.jpg
-    - assets/images/unilink-high-resolution-logo-transparent - Copy.png
+    - assets\images\logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

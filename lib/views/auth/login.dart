@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unilink_project/controllers/auth_controller.dart';
+import 'package:unilink_project/main.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
-
 import 'forgot_password_page.dart';
 
 class Login extends StatefulWidget {
@@ -30,50 +30,53 @@ class LoginState extends State<Login> {
       backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Center(
-          child: Padding(
+          child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // const Icon(
-                  //   Icons.android_rounded,
-                  //   size: 100,
-                  // ),
-                  Image.asset('assets/images/unilink-high-resolution-logo-transparent - Copy.png', height: 200, width: 200,),
-                  SizedBox(height: 20),
-                  const Text(
-                    'Welcome Back!',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    height: 192,
+                    width: 192,
                   ),
-                  const SizedBox(height: 56),
+                  const SizedBox(height: 48.0),
                   CustomTextField(
                     controller: _emailController,
-                    hintText: 'Enter your e-mail',
+                    hintText: 'Enter your email',
                     keyboardType: TextInputType.emailAddress,
+                    border: true,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12.0),
                   CustomTextField(
                     controller: _passwordController,
                     obsecureText: true,
                     hintText: 'Enter your password',
                     keyboardType: TextInputType.visiblePassword,
+                    border: true,
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 12.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      GestureDetector (
+                      GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return ForgotPasswordPage();
-                          },),);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ForgotPasswordPage();
+                              },
+                            ),
+                          );
                         },
-                        child: Text(
+                        child: const Text(
                           'Forgot Password?',
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       )
                     ],
@@ -87,11 +90,15 @@ class LoginState extends State<Login> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    child: Container(
+                      width: deviceWidth - 48,
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),

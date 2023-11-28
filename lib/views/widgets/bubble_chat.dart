@@ -17,7 +17,7 @@ class BubbleChat extends StatelessWidget {
         ),
         child: Text(
           msg,
-          style: TextStyle(fontSize: 15),
+          style: TextStyle(fontSize: 15, color: Colors.white),
         ),
       ),
     );

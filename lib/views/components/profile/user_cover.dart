@@ -39,12 +39,6 @@ class _UserCoverState extends State<UserCover> {
                   bottomLeft: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0),
                 ),
-                // image: DecorationImage(
-                //   image: NetworkImage(
-                //     'https://images.unsplash.com/photo-1700367056148-3e49cae7fc78?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8fA%3D%3D',
-                //   ),
-                //   fit: BoxFit.cover,
-                // ),
               ),
             ),
           ),
@@ -77,8 +71,8 @@ class _UserCoverState extends State<UserCover> {
                   ),
                   CircleAvatar(
                     backgroundColor: Colors.grey.shade400,
-                    radius: 56,
                     backgroundImage: NetworkImage(widget.profilePicture),
+                    radius: 56,
                   ),
                   Column(
                     children: [

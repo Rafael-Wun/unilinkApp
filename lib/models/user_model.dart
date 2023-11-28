@@ -1,6 +1,7 @@
 class UserModel {
   final String uid;
   final String email;
+  final String profile;
   final String name;
   final String university;
   final String bio;
@@ -11,6 +12,7 @@ class UserModel {
   UserModel({
     required this.uid,
     required this.email,
+    required this.profile,
     required this.name,
     required this.university,
     required this.bio,
@@ -23,6 +25,7 @@ class UserModel {
     return UserModel(
       uid: map['uid'] ?? '',
       email: map['email'] ?? '',
+      profile: map['profile'] ?? '',
       name: map['name'] ?? '',
       university: map['university'] ?? '',
       bio: map['bio'] ?? '',
@@ -36,6 +39,7 @@ class UserModel {
     return {
       'uid': uid,
       'email': email,
+      'profile': profile,
       'name': name,
       'university': university,
       'bio': bio,

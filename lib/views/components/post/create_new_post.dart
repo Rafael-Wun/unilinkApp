@@ -42,18 +42,17 @@ class _CreateNewPostState extends State<CreateNewPost> {
       });
 
       final postId = postRef.id;
-
-      await FirebaseFirestore.instance.collection("Posts").doc(postId).update({
+      FirebaseFirestore.instance.collection("Posts").doc(postId).update({
         'id': postId,
       });
 
       setState(() {
         captionController.clear();
       });
-
-      Navigator.pop(context);
     } catch (e) {
       print("Error during uploadPost: $e");
+    } finally {
+      Navigator.pop(context);
     }
   }
 

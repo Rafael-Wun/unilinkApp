@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unilink_project/controllers/auth_controller.dart';
+import 'package:unilink_project/main.dart';
 import 'package:unilink_project/views/widgets/customTextField.dart';
 
 class Register extends StatefulWidget {
@@ -42,56 +43,54 @@ class _RegisterState extends State<Register> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 40),
-                  // const Icon(
-                  //   Icons.android_rounded,
-                  //   size: 100,
-                  // ),
-                  Image.asset('assets/images/unilink-high-resolution-logo-transparent - Copy.png', height: 200, width: 200,),
-                  // SizedBox(height: 20),
-                  const Text(
-                    'Create an Account',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    height: 192,
+                    width: 192,
                   ),
-                  const SizedBox(height: 56),
+                  const SizedBox(height: 24.0),
                   CustomTextField(
                     controller: _emailController,
-                    hintText: 'Enter your e-mail',
+                    hintText: 'Enter your email',
                     keyboardType: TextInputType.emailAddress,
+                    border: true,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12.0),
                   CustomTextField(
                     controller: _passwordController,
                     hintText: 'Create your password',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
+                    border: true,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12.0),
                   CustomTextField(
                     controller: _confirmPasswordController,
                     hintText: 'Confirm your password',
                     obsecureText: true,
                     keyboardType: TextInputType.visiblePassword,
+                    border: true,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12.0),
                   CustomTextField(
                     controller: _nameController,
                     hintText: 'Enter your name',
                     keyboardType: TextInputType.name,
+                    border: true,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12.0),
                   CustomTextField(
                     controller: _universityController,
                     hintText: 'Enter your university',
                     keyboardType: TextInputType.name,
+                    border: true,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12.0),
                   CustomTextField(
                     controller: _bioController,
                     hintText: 'Describe yourself',
                     keyboardType: TextInputType.name,
+                    border: true,
                   ),
                   const SizedBox(height: 64.0),
                   ElevatedButton(
@@ -107,15 +106,19 @@ class _RegisterState extends State<Register> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(223, 88, 90, 1.0),
                     ),
-                    child: const Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    child: Container(
+                      width: deviceWidth - 48,
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 32.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -17,9 +17,7 @@ class _CreatePostState extends State<CreatePost> {
 
   Future chooseFile() async {
     final selectedFile = await FilePicker.platform.pickFiles();
-
     if (selectedFile == null) return;
-
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -32,26 +30,25 @@ class _CreatePostState extends State<CreatePost> {
 
   void postMsg() async {
     try {
-      final postRef = await FirebaseFirestore.instance.collection('Posts').add({
-        'id': '',
-        'content': '',
-        'caption': captionController.text.trim(),
-        'timestamp': Timestamp.now(),
-        'type': 'text',
-        'likes': [],
-        'uid': currentUser.email,
-      });
-
+      final postRef = await FirebaseFirestore.instance.collection('Posts').add(
+        {
+          'id': '',
+          'content': '',
+          'caption': captionController.text.trim(),
+          'timestamp': Timestamp.now(),
+          'type': 'text',
+          'likes': [],
+          'uid': currentUser.email,
+        },
+      );
       final postId = postRef.id;
-
       await FirebaseFirestore.instance.collection("Posts").doc(postId).update({
         'id': postId,
       });
-
       setState(() {
         captionController.clear();
       });
-    } catch (e) {
+    } on FirebaseException catch (e) {
       print("Error during uploadPost: $e");
     }
   }
@@ -59,33 +56,27 @@ class _CreatePostState extends State<CreatePost> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.fromLTRB(16.0, 12.0, 0.0, 12.0),
       margin: EdgeInsets.only(bottom: 24.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
       ),
-      child: Column(
-        children: [
-          _buildTextPost(),
-          SizedBox(height: 20.0),
-          _buildMediaPost(),
-        ],
-      ),
+      child: _buildCreatePost(),
     );
   }
 
-  Widget _buildTextPost() {
+  Widget _buildCreatePost() {
     return Row(
       children: [
         CircleAvatar(
           backgroundColor: Colors.grey[400],
-          child: Icon(
+          child: const Icon(
             Icons.person,
             color: Colors.white,
           ),
         ),
-        SizedBox(width: 16.0),
+        const SizedBox(width: 12.0),
         Expanded(
           child: Container(
             height: 40.0,
@@ -97,35 +88,23 @@ class _CreatePostState extends State<CreatePost> {
             child: TextField(
               controller: captionController,
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Write Something',
                 border: InputBorder.none,
               ),
             ),
           ),
         ),
-        IconButton(onPressed: postMsg, icon: Icon(Icons.send_rounded)),
-      ],
-    );
-  }
-
-  Widget _buildMediaPost() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
+        const SizedBox(width: 12.0),
         GestureDetector(
           onTap: chooseFile,
           child: Row(
             children: [
-              Icon(
-                Icons.photo_library,
-                size: 20.0,
-              ),
-              SizedBox(width: 8.0),
-              Text('Photo'),
+              Icon(Icons.photo_library),
             ],
           ),
         ),
+        IconButton(onPressed: postMsg, icon: Icon(Icons.send_rounded)),
       ],
     );
   }

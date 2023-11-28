@@ -27,11 +27,10 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         border: OutlineInputBorder(
-          borderRadius: borderRadius != null
+          borderRadius: borderRadius == true
               ? BorderRadius.circular(borderRadius!)
-              : BorderRadius.circular(10.0),
-          borderSide:
-              border != null ? BorderSide(color: Colors.grey) : BorderSide.none,
+              : BorderRadius.circular(12.0),
+          borderSide: border == true ? BorderSide() : BorderSide.none,
         ),
         fillColor: Colors.white,
         filled: true,

@@ -15,20 +15,18 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        toolbarHeight: 0.0,
-      ),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            const CreatePost(),
-            Expanded(child: _buildPostList()),
-          ],
-        ),
-      ),
-    );
+        backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+            child: Column(
+              children: [
+                const CreatePost(),
+                Expanded(child: _buildPostList()),
+              ],
+            ),
+          ),
+        ));
   }
 
   Widget _buildPostList() {
@@ -52,18 +50,15 @@ class _HomeViewState extends State<HomeView> {
 
               if (post['type'] == "image") {
                 return ImagePostCard(
-                  postid: post['id'],
-                  postContent: post['content'],
-                  postCaption: post['caption'],
+                  postID: post['id'],
                   likes: List<String>.from(post['likes']),
-                  uid: post['uid'],
+                  postAuthor: post['uid'],
                 );
               } else if (post['type'] == "text") {
                 return TextPostCard(
-                  postid: post['id'],
-                  postCaption: post['caption'],
+                  postID: post['id'],
                   likes: List<String>.from(post['likes']),
-                  uid: post['uid'],
+                  postAuthor: post['uid'],
                 );
               } else {
                 return Container(child: Text('Something went wrong'));
